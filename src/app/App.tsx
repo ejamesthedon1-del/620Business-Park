@@ -188,17 +188,18 @@ export default function App() {
       </header>
 
       {/* HERO */}
-      <section id="hero" className="relative h-screen min-h-[600px] flex items-end bg-black">
+      <section id="hero" className="relative min-h-[520px] md:min-h-[580px] pb-12 md:pb-14 flex items-start justify-center bg-background">
         <img
           src={HERO_IMG}
           alt="620 Office Park — stone office buildings with parking and mature trees"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.5)_28%,transparent_55%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0.28)_12%,rgba(255,255,255,0.16)_24%,rgba(255,255,255,0.08)_38%,rgba(255,255,255,0.03)_52%,transparent_68%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-44 md:h-56 bg-[linear-gradient(to_top,var(--card)_0%,color-mix(in_srgb,var(--card)_90%,transparent)_10%,color-mix(in_srgb,var(--card)_65%,transparent)_26%,color-mix(in_srgb,var(--card)_38%,transparent)_42%,color-mix(in_srgb,var(--card)_15%,transparent)_58%,transparent_78%)] pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pb-10 md:pb-12 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 md:pt-28 w-full text-center">
           <h1
-            className="text-4xl md:text-6xl lg:text-7xl font-normal text-white leading-[0.95] mb-4 max-w-4xl"
+            className="text-4xl md:text-6xl lg:text-7xl font-normal text-foreground leading-[0.95] mb-4 max-w-4xl mx-auto"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             <span className="block">The Next Chapter</span>
@@ -206,11 +207,11 @@ export default function App() {
             <span className="block text-accent not-italic">Starts Here.</span>
           </h1>
 
-          <p className="text-base md:text-lg text-white/70 max-w-xl mb-6 font-light leading-snug">
+          <p className="text-base md:text-lg text-foreground/60 max-w-xl mb-6 font-light leading-snug mx-auto">
             Premium Class A office suites available for immediate occupancy. Designed for businesses that demand more from their environment.
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             <button
               onClick={() => scrollTo("spaces")}
               className="flex items-center gap-3 px-7 py-3.5 bg-accent text-accent-foreground text-sm tracking-[0.1em] uppercase hover:bg-accent/90 transition-colors duration-200"
@@ -220,7 +221,7 @@ export default function App() {
             </button>
             <button
               onClick={() => scrollTo("contact")}
-              className="flex items-center gap-3 px-7 py-3.5 border border-white/30 text-white/80 text-sm tracking-[0.1em] uppercase hover:border-white/60 hover:text-white transition-all duration-200"
+              className="flex items-center gap-3 px-7 py-3.5 border border-foreground/20 text-foreground/70 text-sm tracking-[0.1em] uppercase hover:border-foreground/40 hover:text-foreground transition-all duration-200"
             >
               Schedule a Tour
             </button>
@@ -229,7 +230,7 @@ export default function App() {
       </section>
 
       {/* WHY OUR SPACES */}
-      <section id="overview" className="border-y border-border bg-card">
+      <section id="overview" className="border-b border-border bg-card -mt-px">
         <div className="max-w-7xl mx-auto px-6 py-14 md:py-20">
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <h2
