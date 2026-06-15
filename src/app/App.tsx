@@ -36,12 +36,19 @@ const spaces = [
   },
 ];
 
-const stats = [
-  { label: "Total SF", value: "48,000" },
-  { label: "Floors", value: "4" },
-  { label: "Year Built", value: "2008" },
-  { label: "Parking Ratio", value: "4.5 / 1,000 SF" },
-  { label: "Available SF", value: "7,450" },
+const businessBenefits = [
+  {
+    title: "Make a strong first impression",
+    description: "Professional surroundings that signal credibility and help you win trust from the first meeting.",
+  },
+  {
+    title: "Give your team room to perform",
+    description: "Thoughtful layouts and quiet, well-managed spaces where people can focus and collaborate.",
+  },
+  {
+    title: "Grow without starting over",
+    description: "Flexible suites that adapt as your business expands — so your space keeps pace with your ambition.",
+  },
 ];
 
 const amenities = [
@@ -83,7 +90,7 @@ export default function App() {
   };
 
   const navLinks = [
-    { label: "Property", id: "overview" },
+    { label: "Why Us", id: "overview" },
     { label: "Spaces", id: "spaces" },
     { label: "Gallery", id: "gallery" },
     { label: "Amenities", id: "amenities" },
@@ -214,19 +221,23 @@ export default function App() {
         </button>
       </section>
 
-      {/* STATS STRIP */}
+      {/* WHY OUR SPACES */}
       <section id="overview" className="border-y border-border bg-card">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-y md:divide-y-0 divide-border">
-            {stats.map((s) => (
-              <div key={s.label} className="px-8 py-8 flex flex-col gap-1">
-                <span
-                  className="text-2xl md:text-3xl font-medium text-foreground"
+        <div className="max-w-7xl mx-auto px-6 py-14 md:py-16">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-3">Why 620 Office Park</p>
+          <p className="text-lg md:text-xl text-foreground/60 font-light max-w-2xl mb-12 leading-relaxed">
+            The right space does more than hold your team — it elevates how you work, how you&apos;re seen, and how fast you can grow.
+          </p>
+          <div className="grid md:grid-cols-3 gap-10 md:gap-12">
+            {businessBenefits.map((benefit) => (
+              <div key={benefit.title} className="flex flex-col gap-3 border-t border-border pt-8">
+                <h3
+                  className="text-xl md:text-2xl font-normal text-foreground leading-snug"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  {s.value}
-                </span>
-                <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground">{s.label}</span>
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-foreground/55 font-light leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>
