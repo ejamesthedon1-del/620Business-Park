@@ -222,7 +222,7 @@ export default function App() {
             </button>
             <button
               onClick={() => scrollTo("contact")}
-              className="flex items-center gap-3 px-7 py-3.5 border border-foreground/20 text-foreground/70 text-sm tracking-[0.1em] uppercase hover:border-foreground/40 hover:text-foreground transition-all duration-200"
+              className="flex items-center gap-3 px-7 py-3.5 bg-white text-foreground text-sm tracking-[0.1em] uppercase shadow-sm hover:bg-white/90 transition-colors duration-200"
             >
               Schedule a Tour
             </button>
