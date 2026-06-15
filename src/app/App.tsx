@@ -188,14 +188,15 @@ export default function App() {
       </header>
 
       {/* HERO */}
-      <section id="hero" className="relative min-h-[520px] md:min-h-[580px] pb-12 md:pb-14 flex items-start justify-center bg-background">
+      <section id="hero" className="relative min-h-[580px] md:min-h-[660px] pb-12 md:pb-14 overflow-hidden bg-[#7eb8dc]">
+        {/* Extended sky — fills the text zone */}
+        <div className="absolute inset-x-0 top-0 h-[70%] md:h-[64%] z-[1] bg-gradient-to-b from-[#6aabda] from-0% via-[#7eb8dc] via-35% via-[#91c5e6] via-65% to-transparent to-100% pointer-events-none" />
         <img
           src={HERO_IMG}
           alt="620 Office Park — stone office buildings with parking and mature trees"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute bottom-0 left-0 right-0 w-full h-[56%] md:h-[60%] object-cover object-top"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0.28)_12%,rgba(255,255,255,0.16)_24%,rgba(255,255,255,0.08)_38%,rgba(255,255,255,0.03)_52%,transparent_68%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-44 md:h-56 bg-[linear-gradient(to_top,var(--card)_0%,color-mix(in_srgb,var(--card)_90%,transparent)_10%,color-mix(in_srgb,var(--card)_65%,transparent)_26%,color-mix(in_srgb,var(--card)_38%,transparent)_42%,color-mix(in_srgb,var(--card)_15%,transparent)_58%,transparent_78%)] pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-44 md:h-56 bg-[linear-gradient(to_top,var(--card)_0%,color-mix(in_srgb,var(--card)_90%,transparent)_10%,color-mix(in_srgb,var(--card)_65%,transparent)_26%,color-mix(in_srgb,var(--card)_38%,transparent)_42%,color-mix(in_srgb,var(--card)_15%,transparent)_58%,transparent_78%)] pointer-events-none z-[2]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 md:pt-28 w-full text-center">
           <h1
@@ -293,7 +294,7 @@ export default function App() {
             <img
               src={HERO_IMG}
               alt="620 Office Park — stone office buildings with parking and mature trees"
-              className="w-full aspect-[4/3] object-cover bg-card"
+              className="w-full aspect-[4/3] object-cover object-[center_85%] bg-card"
             />
           </div>
         </div>
