@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Phone,
   Mail,
-  ChevronDown,
   Check,
   Menu,
   X,
@@ -12,8 +11,6 @@ import {
   Users,
   TrendingUp,
   Shield,
-  Gauge,
-  Building2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -72,16 +69,6 @@ const businessBenefits: { icon: LucideIcon; title: string; description: string }
     icon: Shield,
     title: "Operate with confidence",
     description: "On-site management and secure access mean fewer distractions and more time running your business.",
-  },
-  {
-    icon: Building2,
-    title: "Present a polished brand",
-    description: "A landmark address and well-kept property that reflects the quality of the work you do inside.",
-  },
-  {
-    icon: Gauge,
-    title: "Move in and get to work",
-    description: "Turnkey suites with fiber internet and shared amenities — ready when you are.",
   },
 ];
 
@@ -146,13 +133,13 @@ export default function App() {
             className="flex items-center gap-2 group"
           >
             <span
-              className="text-xs tracking-[0.2em] uppercase text-accent font-medium"
+              className="text-sm md:text-base tracking-[0.2em] uppercase text-accent font-medium"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               620
             </span>
             <span
-              className="text-xs tracking-[0.25em] uppercase text-foreground/80 font-light"
+              className="text-sm md:text-base tracking-[0.25em] uppercase text-foreground/80 font-light"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               Office Park
@@ -210,13 +197,6 @@ export default function App() {
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.5)_28%,transparent_55%)]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 pb-10 md:pb-12 w-full">
-          <div className="flex items-center gap-2 mb-4">
-            <MapPin size={12} className="text-accent" />
-            <span className="text-xs tracking-[0.2em] uppercase text-accent">
-              620 Office Park Drive
-            </span>
-          </div>
-
           <h1
             className="text-5xl md:text-7xl lg:text-8xl font-normal text-white leading-[0.88] mb-4"
             style={{ fontFamily: "'Playfair Display', serif" }}
@@ -245,24 +225,12 @@ export default function App() {
             </button>
           </div>
         </div>
-
-        <button
-          onClick={() => scrollTo("overview")}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 hover:text-white/70 transition-colors animate-bounce"
-        >
-          <ChevronDown size={20} />
-        </button>
       </section>
 
       {/* WHY OUR SPACES */}
       <section id="overview" className="border-y border-border bg-card">
         <div className="max-w-7xl mx-auto px-6 py-14 md:py-20">
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-background text-[11px] tracking-[0.12em] uppercase text-muted-foreground mb-6">
-              <Sparkles size={12} className="text-accent" />
-              Built for Growing Businesses
-              <Sparkles size={12} className="text-accent" />
-            </span>
             <h2
               className="text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
@@ -274,23 +242,24 @@ export default function App() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border overflow-hidden">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-border">
-              {businessBenefits.map((benefit) => {
-                const Icon = benefit.icon;
-                return (
-                  <div key={benefit.title} className="bg-card p-8 md:p-10 flex flex-col gap-4">
-                    <Icon size={20} className="text-foreground/50" strokeWidth={1.5} />
-                    <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-sm text-foreground/55 font-light leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {businessBenefits.map((benefit) => {
+              const Icon = benefit.icon;
+              return (
+                <div
+                  key={benefit.title}
+                  className="rounded-2xl border border-border bg-background p-8 md:p-10 flex flex-col gap-4"
+                >
+                  <Icon size={20} className="text-foreground/50" strokeWidth={1.5} />
+                  <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm text-foreground/55 font-light leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
