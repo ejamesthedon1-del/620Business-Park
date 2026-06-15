@@ -175,8 +175,8 @@ export default function App() {
         />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.5)_28%,transparent_55%)]" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20 w-full">
-          <div className="flex items-center gap-2 mb-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pb-10 md:pb-12 w-full">
+          <div className="flex items-center gap-2 mb-4">
             <MapPin size={12} className="text-accent" />
             <span className="text-xs tracking-[0.2em] uppercase text-accent">
               620 Office Park Drive
@@ -184,15 +184,14 @@ export default function App() {
           </div>
 
           <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-normal text-white leading-none mb-6"
+            className="text-5xl md:text-7xl lg:text-8xl font-normal text-white leading-[0.88] mb-4"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Space that works
-            <br />
-            <em className="text-accent not-italic">as hard as you do.</em>
+            <span className="block">Space that works</span>
+            <span className="block text-accent not-italic">as hard as you do.</span>
           </h1>
 
-          <p className="text-base md:text-lg text-white/70 max-w-xl mb-10 font-light leading-relaxed">
+          <p className="text-base md:text-lg text-white/70 max-w-xl mb-6 font-light leading-snug">
             Premium Class A office suites available for immediate occupancy. Designed for businesses that demand more from their environment.
           </p>
 
@@ -215,7 +214,7 @@ export default function App() {
 
         <button
           onClick={() => scrollTo("overview")}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 hover:text-white/70 transition-colors animate-bounce"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 hover:text-white/70 transition-colors animate-bounce"
         >
           <ChevronDown size={20} />
         </button>
@@ -224,8 +223,13 @@ export default function App() {
       {/* WHY OUR SPACES */}
       <section id="overview" className="border-y border-border bg-card">
         <div className="max-w-7xl mx-auto px-6 py-14 md:py-16">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-3">Why 620 Office Park</p>
-          <p className="text-lg md:text-xl text-foreground/60 font-light max-w-2xl mb-12 leading-relaxed">
+          <h2
+            className="text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight mb-5 max-w-4xl"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Helping Businesses Grow Starts With the Right Space
+          </h2>
+          <p className="text-sm md:text-base text-foreground/55 font-light max-w-2xl mb-12 leading-relaxed">
             The right space does more than hold your team — it elevates how you work, how you&apos;re seen, and how fast you can grow.
           </p>
           <div className="grid md:grid-cols-3 gap-10 md:gap-12">
