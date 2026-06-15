@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import {
   MapPin,
   ArrowRight,
@@ -7,6 +8,7 @@ import {
   Check,
   Menu,
   X,
+  Star,
   Sparkles,
   Users,
   TrendingUp,
@@ -27,6 +29,7 @@ const spaces = [
     sqft: "1,850",
     available: "Immediate",
     rate: "$28 / SF / Yr",
+    image: "/images/gallery-building.png",
     features: ["Corner unit", "Private entrance", "Kitchenette", "2 private offices"],
   },
   {
@@ -36,6 +39,7 @@ const spaces = [
     sqft: "3,400",
     available: "August 1, 2026",
     rate: "$26 / SF / Yr",
+    image: "/images/gallery-walkway.png",
     features: ["Open floor plan", "Conference room", "Storage room", "Elevator access"],
   },
   {
@@ -45,6 +49,7 @@ const spaces = [
     sqft: "2,200",
     available: "Immediate",
     rate: "$27 / SF / Yr",
+    image: "/images/gallery-parking.png",
     features: ["City views", "Reception area", "4 private offices", "Break room"],
   },
 ];
@@ -72,19 +77,31 @@ const businessBenefits: { icon: LucideIcon; title: string; description: string }
   },
 ];
 
-const amenities = [
-  "24/7 Secure Access",
-  "On-site Property Management",
-  "High-Speed Fiber Internet",
-  "Common Area HVAC",
-  "ADA Compliant",
-  "Covered Parking",
-  "EV Charging Stations",
-  "On-site Café",
-  "Conference Facilities",
-  "Bike Storage",
-  "Rooftop Terrace",
-  "LEED Certified",
+const reviews = [
+  {
+    name: "Sarah Chen",
+    company: "Meridian Legal Group",
+    suite: "Suite 220",
+    rating: 5,
+    quote:
+      "Moving here was one of the best decisions we made for the firm. The building is impeccably maintained, parking is easy, and our clients consistently comment on how professional the space feels.",
+  },
+  {
+    name: "James Whitfield",
+    company: "Whitfield Advisory",
+    suite: "Suite 110",
+    rating: 5,
+    quote:
+      "The on-site management team is responsive and genuinely helpful. From day one, setup was smooth and we've had zero downtime — exactly what a growing business needs.",
+  },
+  {
+    name: "Priya Kapoor",
+    company: "Kapoor Design Studio",
+    suite: "Suite 310",
+    rating: 5,
+    quote:
+      "Natural light, quiet floors, and a layout that actually works for our team. We looked at a dozen properties before choosing 620 — this one stood out immediately.",
+  },
 ];
 
 export default function App() {
@@ -114,7 +131,7 @@ export default function App() {
     { label: "Why Us", id: "overview" },
     { label: "Spaces", id: "spaces" },
     { label: "Gallery", id: "gallery" },
-    { label: "Amenities", id: "amenities" },
+    { label: "Reviews", id: "reviews" },
     { label: "Contact", id: "contact" },
   ];
 
@@ -318,28 +335,35 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-px bg-border">
-            {spaces.map((s, i) => (
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {spaces.map((s) => (
               <div
                 key={s.id}
-                className="bg-card p-8 flex flex-col gap-6 group hover:bg-background transition-colors duration-300"
+                className="rounded-3xl border border-border bg-background overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300"
               >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-1">{s.floor}</p>
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <ImageWithFallback
+                    src={s.image}
+                    alt={`${s.id} — ${s.type}`}
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/5 pointer-events-none" />
+                  <span className="absolute top-4 right-4 text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full bg-white/90 text-foreground backdrop-blur-sm">
+                    {s.available === "Immediate" ? "Available" : "Coming Soon"}
+                  </span>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-7">
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-white/75 mb-1">{s.floor}</p>
                     <h3
-                      className="text-xl text-foreground font-normal"
+                      className="text-2xl md:text-[1.65rem] text-white font-normal leading-tight"
                       style={{ fontFamily: "'Playfair Display', serif" }}
                     >
                       {s.id}
                     </h3>
                   </div>
-                  <span className="text-[10px] tracking-[0.15em] uppercase px-2.5 py-1 border border-accent text-accent">
-                    {s.available === "Immediate" ? "Available" : "Coming Soon"}
-                  </span>
                 </div>
 
-                <div className="border-t border-border pt-6 grid grid-cols-2 gap-4">
+                <div className="p-6 md:p-8 flex flex-col gap-6 flex-1">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Type</p>
                     <p className="text-sm text-foreground/80">{s.type}</p>
@@ -374,6 +398,7 @@ export default function App() {
                   Inquire About This Suite
                   <ArrowRight size={11} />
                 </button>
+                </div>
               </div>
             ))}
           </div>
@@ -408,29 +433,44 @@ export default function App() {
         </div>
       </section>
 
-      {/* AMENITIES */}
-      <section id="amenities" className="border-t border-border py-24 md:py-32">
+      {/* REVIEWS */}
+      <section id="reviews" className="border-t border-border py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16">
-            <div>
-              <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">Building Features</p>
-              <h2
-                className="text-4xl md:text-5xl font-normal text-foreground leading-tight"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Everything your
-                <br />business needs.
-              </h2>
-            </div>
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4">What Tenants Say</p>
+            <h2
+              className="text-4xl md:text-5xl font-normal text-foreground leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Trusted by Growing Businesses
+            </h2>
+            <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
+              Hear from teams who chose 620 Office Park as their home base.
+            </p>
+          </div>
 
-            <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-              {amenities.map((a) => (
-                <div key={a} className="flex items-center gap-3 py-3 border-b border-border">
-                  <div className="w-1 h-1 rounded-full bg-accent shrink-0" />
-                  <span className="text-sm text-foreground/70 font-light">{a}</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {reviews.map((review) => (
+              <div
+                key={review.name}
+                className="rounded-3xl border border-border bg-background p-8 md:p-10 flex flex-col gap-5"
+              >
+                <div className="flex gap-1">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <Star key={i} size={14} className="text-accent fill-accent" />
+                  ))}
                 </div>
-              ))}
-            </div>
+                <p className="text-sm text-foreground/70 font-light leading-relaxed flex-1">
+                  &ldquo;{review.quote}&rdquo;
+                </p>
+                <div className="border-t border-border pt-5">
+                  <p className="text-sm font-medium text-foreground">{review.name}</p>
+                  <p className="text-xs text-foreground/50 mt-1">
+                    {review.company} · {review.suite}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
