@@ -198,11 +198,12 @@ export default function App() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 pb-10 md:pb-12 w-full">
           <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-normal text-white leading-[0.88] mb-4"
+            className="text-4xl md:text-6xl lg:text-7xl font-normal text-white leading-[0.95] mb-4 max-w-4xl"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            <span className="block">Space that works</span>
-            <span className="block text-accent not-italic">as hard as you do.</span>
+            <span className="block">The Next Chapter</span>
+            <span className="block">for Your Business</span>
+            <span className="block text-accent not-italic">Starts Here.</span>
           </h1>
 
           <p className="text-base md:text-lg text-white/70 max-w-xl mb-6 font-light leading-snug">
