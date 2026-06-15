@@ -188,13 +188,13 @@ export default function App() {
       </header>
 
       {/* HERO */}
-      <section id="hero" className="relative min-h-[580px] md:min-h-[660px] pb-12 md:pb-14 overflow-hidden bg-[#7eb8dc]">
+      <section id="hero" className="relative min-h-[620px] md:min-h-[700px] pb-12 md:pb-14 overflow-hidden bg-[#7eb8dc]">
         {/* Extended sky — fills the text zone */}
         <div className="absolute inset-x-0 top-0 h-[70%] md:h-[64%] z-[1] bg-gradient-to-b from-[#6aabda] from-0% via-[#7eb8dc] via-35% via-[#91c5e6] via-65% to-transparent to-100% pointer-events-none" />
         <img
           src={HERO_IMG}
           alt="620 Office Park — stone office buildings with parking and mature trees"
-          className="absolute bottom-0 left-0 right-0 w-full h-[56%] md:h-[60%] object-cover object-top"
+          className="absolute bottom-0 left-0 right-0 w-full h-[56%] md:h-[60%] object-cover object-top translate-y-4 md:translate-y-5"
         />
         <div className="absolute inset-x-0 bottom-0 h-44 md:h-56 bg-[linear-gradient(to_top,var(--card)_0%,color-mix(in_srgb,var(--card)_90%,transparent)_10%,color-mix(in_srgb,var(--card)_65%,transparent)_26%,color-mix(in_srgb,var(--card)_38%,transparent)_42%,color-mix(in_srgb,var(--card)_15%,transparent)_58%,transparent_78%)] pointer-events-none z-[2]" />
 
