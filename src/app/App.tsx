@@ -1,5 +1,21 @@
 import { useState, useEffect, useRef } from "react";
-import { MapPin, ArrowRight, Phone, Mail, ChevronDown, Check, Menu, X } from "lucide-react";
+import {
+  MapPin,
+  ArrowRight,
+  Phone,
+  Mail,
+  ChevronDown,
+  Check,
+  Menu,
+  X,
+  Sparkles,
+  Users,
+  TrendingUp,
+  Shield,
+  Gauge,
+  Building2,
+  type LucideIcon,
+} from "lucide-react";
 
 const HERO_IMG = "/images/hero.png";
 const GALLERY_IMG_PARKING = "/images/gallery-parking.png";
@@ -36,18 +52,36 @@ const spaces = [
   },
 ];
 
-const businessBenefits = [
+const businessBenefits: { icon: LucideIcon; title: string; description: string }[] = [
   {
+    icon: Sparkles,
     title: "Make a strong first impression",
     description: "Professional surroundings that signal credibility and help you win trust from the first meeting.",
   },
   {
+    icon: Users,
     title: "Give your team room to perform",
     description: "Thoughtful layouts and quiet, well-managed spaces where people can focus and collaborate.",
   },
   {
+    icon: TrendingUp,
     title: "Grow without starting over",
     description: "Flexible suites that adapt as your business expands — so your space keeps pace with your ambition.",
+  },
+  {
+    icon: Shield,
+    title: "Operate with confidence",
+    description: "On-site management and secure access mean fewer distractions and more time running your business.",
+  },
+  {
+    icon: Building2,
+    title: "Present a polished brand",
+    description: "A landmark address and well-kept property that reflects the quality of the work you do inside.",
+  },
+  {
+    icon: Gauge,
+    title: "Move in and get to work",
+    description: "Turnkey suites with fiber internet and shared amenities — ready when you are.",
   },
 ];
 
@@ -222,28 +256,41 @@ export default function App() {
 
       {/* WHY OUR SPACES */}
       <section id="overview" className="border-y border-border bg-card">
-        <div className="max-w-7xl mx-auto px-6 py-14 md:py-16">
-          <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight mb-5 max-w-4xl"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            Helping Businesses Grow Starts With the Right Space
-          </h2>
-          <p className="text-sm md:text-base text-foreground/55 font-light max-w-2xl mb-12 leading-relaxed">
-            The right space does more than hold your team — it elevates how you work, how you&apos;re seen, and how fast you can grow.
-          </p>
-          <div className="grid md:grid-cols-3 gap-10 md:gap-12">
-            {businessBenefits.map((benefit) => (
-              <div key={benefit.title} className="flex flex-col gap-3 border-t border-border pt-8">
-                <h3
-                  className="text-xl md:text-2xl font-normal text-foreground leading-snug"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  {benefit.title}
-                </h3>
-                <p className="text-sm text-foreground/55 font-light leading-relaxed">{benefit.description}</p>
-              </div>
-            ))}
+        <div className="max-w-7xl mx-auto px-6 py-14 md:py-20">
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-background text-[11px] tracking-[0.12em] uppercase text-muted-foreground mb-6">
+              <Sparkles size={12} className="text-accent" />
+              Built for Growing Businesses
+              <Sparkles size={12} className="text-accent" />
+            </span>
+            <h2
+              className="text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Everything Your Business Needs to Thrive
+            </h2>
+            <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
+              The right space does more than hold your team — it elevates how you work, how you&apos;re seen, and how fast you can grow.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-border overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-border">
+              {businessBenefits.map((benefit) => {
+                const Icon = benefit.icon;
+                return (
+                  <div key={benefit.title} className="bg-card p-8 md:p-10 flex flex-col gap-4">
+                    <Icon size={20} className="text-foreground/50" strokeWidth={1.5} />
+                    <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-sm text-foreground/55 font-light leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
