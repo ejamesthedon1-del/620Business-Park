@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -9,21 +9,21 @@ import {
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
-import { Navigation } from "lucide-react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { Navigation, ArrowRight } from "lucide-react";
+import {
+  SurroundingBusinessesModal,
+  surroundingBusinessCount,
+} from "./SurroundingBusinessesModal";
 import {
   propertyLocation,
   highway,
-  nearbyBusinesses,
   mapDefaults,
-  businessAreaLabels,
   plazaClusters,
   getBusinessesWithMapPositions,
   propertyPinPosition,
   officeParkFootprint,
   officeParkLabelPosition,
   type NearbyBusiness,
-  type BusinessArea,
 } from "../../data/location";
 
 import "leaflet/dist/leaflet.css";
@@ -160,55 +160,8 @@ function MapViewController({
   return null;
 }
 
-function CompactBusinessChip({ business }: { business: NearbyBusiness }) {
-  const label = business.distance
-    ? `${business.name} · ${business.distance}`
-    : business.name;
-
-  return (
-    <li
-      title={label}
-      className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-white border border-border shrink-0"
-    >
-      <div className="w-4 h-4 shrink-0 flex items-center justify-center overflow-hidden">
-        <ImageWithFallback
-          src={business.logo}
-          alt=""
-          aria-hidden="true"
-          className="w-full h-full object-contain"
-        />
-      </div>
-      <span className="text-[8px] tracking-wide uppercase text-foreground/75 max-w-[5.5rem] truncate">
-        {business.name}
-      </span>
-    </li>
-  );
-}
-
-function BusinessGroupRow({
-  label,
-  businesses,
-}: {
-  label: string;
-  businesses: NearbyBusiness[];
-}) {
-  if (businesses.length === 0) return null;
-
-  return (
-    <div className="flex items-start gap-2 min-w-0">
-      <span className="text-[8px] tracking-[0.15em] uppercase text-muted-foreground shrink-0 pt-1 w-[4.5rem] leading-tight">
-        {label}
-      </span>
-      <ul className="flex flex-wrap gap-1 min-w-0">
-        {businesses.map((business) => (
-          <CompactBusinessChip key={business.id} business={business} />
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 export function PropertyLocationMap() {
+  const [businessesOpen, setBusinessesOpen] = useState(false);
   const propertyIcon = useMemo(() => createPropertyIcon(), []);
   const campusLabelIcon = useMemo(() => createCampusLabelIcon(), []);
   const businessesOnMap = useMemo(() => getBusinessesWithMapPositions(), []);
@@ -228,7 +181,6 @@ export function PropertyLocationMap() {
     [businessesOnMap],
   );
 
-  const corridorAreas: BusinessArea[] = ["andersonMill", "fourPoints"];
   const plazaHighlights = useMemo(
     () => Object.values(plazaClusters).filter((p) => p.id !== "620-office-park"),
     [],
@@ -330,25 +282,24 @@ export function PropertyLocationMap() {
         </div>
       </div>
 
-      <div className="border-t border-border px-3 py-2 bg-card">
-        <p className="text-[8px] tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
-          Surrounding businesses on {highway.shortName}
+      <div className="border-t border-border px-4 py-3 bg-card flex items-center justify-between gap-3">
+        <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground min-w-0">
+          {surroundingBusinessCount} businesses on {highway.shortName}
         </p>
-
-        <div className="space-y-1.5">
-          {corridorAreas.map((area) => (
-            <BusinessGroupRow
-              key={area}
-              label={businessAreaLabels[area]}
-              businesses={nearbyBusinesses.filter((b) => b.area === area)}
-            />
-          ))}
-          <BusinessGroupRow
-            label={businessAreaLabels.onsite}
-            businesses={nearbyBusinesses.filter((b) => b.area === "onsite")}
-          />
-        </div>
+        <button
+          type="button"
+          onClick={() => setBusinessesOpen(true)}
+          className="shrink-0 inline-flex items-center gap-1.5 text-[10px] tracking-[0.12em] uppercase text-accent border border-accent/40 px-3 py-1.5 hover:bg-accent/5 transition-colors"
+        >
+          View all
+          <ArrowRight size={11} />
+        </button>
       </div>
+
+      <SurroundingBusinessesModal
+        open={businessesOpen}
+        onClose={() => setBusinessesOpen(false)}
+      />
     </div>
   );
 }
