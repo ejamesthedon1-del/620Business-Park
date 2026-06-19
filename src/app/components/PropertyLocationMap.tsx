@@ -45,19 +45,6 @@ function createPropertyIcon() {
           />
           <circle cx="18" cy="17" r="8" fill="#FFFFFF"/>
         </svg>
-        <span style="
-          position: absolute;
-          top: 10px;
-          left: 50%;
-          transform: translateX(-50%);
-          color: ${FOREGROUND};
-          font-size: 8px;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          font-family: Outfit, sans-serif;
-          line-height: 1;
-          pointer-events: none;
-        ">620</span>
       </div>
     `,
     iconSize: [36, 48],
