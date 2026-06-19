@@ -8,12 +8,22 @@
   height: 100%;
 }
 
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .leaflet-control-zoom a {
   color: #1A1A18 !important;
   border-color: rgba(26, 26, 24, 0.12) !important;
+  background: rgba(248, 247, 244, 0.95) !important;
 }
 
 .leaflet-control-attribution {
   font-size: 9px !important;
   background: rgba(248, 247, 244, 0.9) !important;
+}
+
+.property-pin-marker {
+  filter: drop-shadow(0 3px 10px rgba(26, 26, 24, 0.28));
 }

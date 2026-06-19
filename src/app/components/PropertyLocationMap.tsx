@@ -1,67 +1,115 @@
 import { useEffect, useMemo } from "react";
-import { MapContainer, TileLayer, Marker, Polyline, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  Polygon,
+  Circle,
+  useMap,
+} from "react-leaflet";
 import L from "leaflet";
-import { MapPin, Navigation } from "lucide-react";
+import { Navigation } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import {
   propertyLocation,
   highway,
   nearbyBusinesses,
   mapDefaults,
-  businessGroupLabels,
+  businessAreaLabels,
+  plazaClusters,
+  getBusinessesWithMapPositions,
+  propertyPinPosition,
+  officeParkFootprint,
+  officeParkLabelPosition,
   type NearbyBusiness,
-  type BusinessGroup,
+  type BusinessArea,
 } from "../../data/location";
 
 import "leaflet/dist/leaflet.css";
 
 const ACCENT = "#B8965A";
+const FOREGROUND = "#1A1A18";
 
 function createPropertyIcon() {
   return L.divIcon({
-    className: "",
-    html: `<div style="
-      width: 32px;
-      height: 32px;
-      background: ${ACCENT};
-      border: 3px solid white;
-      border-radius: 50%;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.28);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      font-family: Outfit, sans-serif;
-    ">620</div>`,
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
+    className: "property-pin-marker",
+    html: `
+      <div style="position: relative; width: 36px; height: 48px;">
+        <svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path
+            d="M18 46C18 46 3 27.5 3 17C3 8.82 9.82 2 18 2C26.18 2 33 8.82 33 17C33 27.5 18 46 18 46Z"
+            fill="${ACCENT}"
+            stroke="#FFFFFF"
+            stroke-width="2.5"
+          />
+          <circle cx="18" cy="17" r="8" fill="#FFFFFF"/>
+        </svg>
+        <span style="
+          position: absolute;
+          top: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: ${FOREGROUND};
+          font-size: 8px;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          font-family: Outfit, sans-serif;
+          line-height: 1;
+          pointer-events: none;
+        ">620</span>
+      </div>
+    `,
+    iconSize: [36, 48],
+    iconAnchor: [18, 46],
   });
 }
 
-function createBusinessLogoIcon(business: NearbyBusiness) {
-  const size = business.onSite ? 40 : 48;
+function createCampusLabelIcon() {
+  return L.divIcon({
+    className: "office-park-label",
+    html: `<span style="
+      display: inline-block;
+      padding: 2px 6px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid ${ACCENT};
+      color: ${FOREGROUND};
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: Outfit, sans-serif;
+      white-space: nowrap;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+      pointer-events: none;
+    ">620 Office Park</span>`,
+    iconSize: [108, 18],
+    iconAnchor: [54, 9],
+  });
+}
+
+function createBusinessLogoIcon(business: NearbyBusiness, size = 40) {
+  const isOnSite = business.onSite;
 
   return L.divIcon({
-    className: "business-logo-marker",
+    className: isOnSite ? "onsite-unit-marker" : "business-logo-marker",
     html: `<div style="
       width: ${size}px;
       height: ${size}px;
       background: white;
-      border: 3px solid white;
-      border-radius: ${business.onSite ? "10px" : "12px"};
-      box-shadow: 0 3px 12px rgba(0,0,0,0.24);
+      border: 2px solid white;
+      border-radius: ${isOnSite ? "6px" : "10px"};
+      box-shadow: 0 2px 8px rgba(0,0,0,0.22);
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      ${isOnSite ? `outline: 2px solid ${ACCENT}; outline-offset: -1px;` : ""}
     ">
       <img
         src="${business.logo}"
         alt="${business.name}"
-        style="width: 100%; height: 100%; object-fit: contain; padding: 5px; box-sizing: border-box;"
+        style="width: 100%; height: 100%; object-fit: contain; padding: 4px; box-sizing: border-box;"
       />
     </div>`,
     iconSize: [size, size],
@@ -70,83 +118,146 @@ function createBusinessLogoIcon(business: NearbyBusiness) {
 }
 
 function MapViewController({
-  center,
-  zoom,
+  mapPositions,
 }: {
-  center: [number, number];
-  zoom: number;
+  mapPositions: { lat: number; lng: number }[];
 }) {
   const map = useMap();
 
   useEffect(() => {
-    const syncView = () => {
+    const fitOverview = (animate = false) => {
       map.invalidateSize({ animate: false });
-      map.setView(center, zoom, { animate: false });
+
+      const points: [number, number][] = [
+        [propertyPinPosition.lat, propertyPinPosition.lng],
+        ...mapPositions.map((p) => [p.lat, p.lng]),
+      ];
+
+      const bounds = L.latLngBounds(points);
+      map.fitBounds(bounds, {
+        padding: mapDefaults.fitBoundsPadding,
+        maxZoom: mapDefaults.fitBoundsMaxZoom,
+        animate,
+      });
     };
 
-    syncView();
+    fitOverview(false);
 
     const container = map.getContainer();
-    const observer = new ResizeObserver(syncView);
-    observer.observe(container);
+    const section = container.closest("[data-location-map]");
 
-    return () => observer.disconnect();
-  }, [map, center, zoom]);
+    const resizeObserver = new ResizeObserver(() => fitOverview(false));
+    resizeObserver.observe(container);
+
+    const intersectionObserver =
+      section &&
+      new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            fitOverview(true);
+          }
+        },
+        { threshold: 0.35 },
+      );
+
+    if (section && intersectionObserver) {
+      intersectionObserver.observe(section);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+      intersectionObserver?.disconnect();
+    };
+  }, [map, mapPositions]);
 
   return null;
 }
 
-function BusinessChip({ business }: { business: NearbyBusiness }) {
+function CompactBusinessChip({ business }: { business: NearbyBusiness }) {
+  const label = business.distance
+    ? `${business.name} · ${business.distance}`
+    : business.name;
+
   return (
-    <li className="flex items-center gap-2 px-2 py-1.5 bg-secondary border border-border min-w-0">
-      <div className="w-7 h-7 shrink-0 bg-white border border-border flex items-center justify-center overflow-hidden">
+    <li
+      title={label}
+      className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-white border border-border shrink-0"
+    >
+      <div className="w-4 h-4 shrink-0 flex items-center justify-center overflow-hidden">
         <ImageWithFallback
           src={business.logo}
-          alt={business.name}
-          className="w-full h-full object-contain p-0.5"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-contain"
         />
       </div>
-      <div className="min-w-0">
-        <p className="text-[10px] tracking-wide uppercase text-foreground/80 truncate">
-          {business.name}
-        </p>
-        {business.distance && (
-          <p className="text-[9px] text-muted-foreground">{business.distance}</p>
-        )}
-      </div>
+      <span className="text-[8px] tracking-wide uppercase text-foreground/75 max-w-[5.5rem] truncate">
+        {business.name}
+      </span>
     </li>
+  );
+}
+
+function BusinessGroupRow({
+  label,
+  businesses,
+}: {
+  label: string;
+  businesses: NearbyBusiness[];
+}) {
+  if (businesses.length === 0) return null;
+
+  return (
+    <div className="flex items-start gap-2 min-w-0">
+      <span className="text-[8px] tracking-[0.15em] uppercase text-muted-foreground shrink-0 pt-1 w-[4.5rem] leading-tight">
+        {label}
+      </span>
+      <ul className="flex flex-wrap gap-1 min-w-0">
+        {businesses.map((business) => (
+          <CompactBusinessChip key={business.id} business={business} />
+        ))}
+      </ul>
+    </div>
   );
 }
 
 export function PropertyLocationMap() {
   const propertyIcon = useMemo(() => createPropertyIcon(), []);
+  const campusLabelIcon = useMemo(() => createCampusLabelIcon(), []);
+  const businessesOnMap = useMemo(() => getBusinessesWithMapPositions(), []);
   const businessIcons = useMemo(
     () =>
       Object.fromEntries(
-        nearbyBusinesses.map((business) => [
-          business.name,
-          createBusinessLogoIcon(business),
+        businessesOnMap.map((business) => [
+          business.id,
+          createBusinessLogoIcon(business, business.onSite ? 28 : 38),
         ]),
       ),
+    [businessesOnMap],
+  );
+
+  const mapPositions = useMemo(
+    () => businessesOnMap.map((business) => business.mapPosition),
+    [businessesOnMap],
+  );
+
+  const corridorAreas: BusinessArea[] = ["andersonMill", "fourPoints"];
+  const plazaHighlights = useMemo(
+    () => Object.values(plazaClusters).filter((p) => p.id !== "620-office-park"),
     [],
   );
 
-  const center: [number, number] = [
-    propertyLocation.coordinates.lat,
-    propertyLocation.coordinates.lng,
-  ];
-
-  const onSiteBusinesses = nearbyBusinesses.filter((b) => b.onSite);
-  const corridorGroups: BusinessGroup[] = ["dining", "grocery", "retail", "banking"];
-
   return (
-    <div className="w-full border border-border bg-card">
+    <div className="w-full border border-border bg-card" data-location-map>
       <div
-        className="relative w-full aspect-[4/3] overflow-hidden"
+        className="relative w-full h-[340px] sm:h-[400px] md:h-[500px] lg:h-[540px] overflow-hidden"
         aria-label={`Map showing ${propertyLocation.name} at ${propertyLocation.fullAddress} on ${highway.shortName}`}
       >
         <MapContainer
-          center={center}
+          center={[
+            propertyLocation.coordinates.lat,
+            propertyLocation.coordinates.lng,
+          ]}
           zoom={mapDefaults.zoom}
           minZoom={mapDefaults.minZoom}
           maxZoom={mapDefaults.maxZoom}
@@ -155,7 +266,7 @@ export function PropertyLocationMap() {
           zoomControl={true}
           attributionControl={true}
         >
-          <MapViewController center={center} zoom={mapDefaults.zoom} />
+          <MapViewController mapPositions={mapPositions} />
 
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
@@ -172,19 +283,59 @@ export function PropertyLocationMap() {
             }}
           />
 
-          <Marker position={center} icon={propertyIcon} zIndexOffset={1000} />
+          {plazaHighlights.map((plaza) => (
+            <Circle
+              key={plaza.id}
+              center={[plaza.center.lat, plaza.center.lng]}
+              radius={plaza.highlightRadius}
+              pathOptions={{
+                color: ACCENT,
+                weight: 1.5,
+                opacity: 0.55,
+                fillColor: ACCENT,
+                fillOpacity: 0.06,
+                dashArray: "6 5",
+              }}
+            />
+          ))}
 
-          {nearbyBusinesses.map((business) => (
+          <Polygon
+            positions={officeParkFootprint}
+            pathOptions={{
+              color: ACCENT,
+              weight: 2,
+              opacity: 0.8,
+              fillColor: ACCENT,
+              fillOpacity: 0.12,
+              dashArray: "8 6",
+            }}
+          />
+
+          <Marker
+            position={[officeParkLabelPosition.lat, officeParkLabelPosition.lng]}
+            icon={campusLabelIcon}
+            zIndexOffset={600}
+            interactive={false}
+          />
+
+          <Marker
+            position={[propertyPinPosition.lat, propertyPinPosition.lng]}
+            icon={propertyIcon}
+            zIndexOffset={1000}
+            title={propertyLocation.name}
+          />
+
+          {businessesOnMap.map((business) => (
             <Marker
-              key={business.name}
-              position={[business.coordinates.lat, business.coordinates.lng]}
-              icon={businessIcons[business.name]}
+              key={business.id}
+              position={[business.mapPosition.lat, business.mapPosition.lng]}
+              icon={businessIcons[business.id]}
               zIndexOffset={business.onSite ? 500 : 400}
             />
           ))}
         </MapContainer>
 
-        <div className="absolute top-4 left-4 z-[400] flex items-center gap-2 bg-card/95 backdrop-blur-sm border border-border px-3 py-2 pointer-events-none">
+        <div className="absolute top-3 right-3 z-[400] flex items-center gap-2 bg-card/95 backdrop-blur-sm border border-border px-3 py-1.5 pointer-events-none">
           <Navigation size={12} className="text-accent shrink-0" />
           <span className="text-[10px] tracking-[0.15em] uppercase text-foreground font-medium">
             On {highway.shortName}
@@ -192,48 +343,23 @@ export function PropertyLocationMap() {
         </div>
       </div>
 
-      <div className="border-t border-border p-4 bg-card">
-        <div className="flex items-start gap-2 mb-3">
-          <MapPin size={12} className="text-accent mt-0.5 shrink-0" />
-          <div>
-            <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">
-              {highway.shortName} Corridor
-            </p>
-            <p className="text-xs text-foreground font-light">{highway.description}</p>
-          </div>
-        </div>
+      <div className="border-t border-border px-3 py-2 bg-card">
+        <p className="text-[8px] tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
+          Surrounding businesses on {highway.shortName}
+        </p>
 
-        <div className="space-y-3">
-          {corridorGroups.map((group) => {
-            const businesses = nearbyBusinesses.filter((b) => b.group === group);
-            if (businesses.length === 0) return null;
-
-            return (
-              <div key={group}>
-                <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2">
-                  {businessGroupLabels[group]}
-                </p>
-                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {businesses.map((b) => (
-                    <BusinessChip key={b.name} business={b} />
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-
-          {onSiteBusinesses.length > 0 && (
-            <div>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2">
-                {businessGroupLabels.onsite}
-              </p>
-              <ul className="grid grid-cols-2 gap-2">
-                {onSiteBusinesses.map((b) => (
-                  <BusinessChip key={b.name} business={b} />
-                ))}
-              </ul>
-            </div>
-          )}
+        <div className="space-y-1.5">
+          {corridorAreas.map((area) => (
+            <BusinessGroupRow
+              key={area}
+              label={businessAreaLabels[area]}
+              businesses={nearbyBusinesses.filter((b) => b.area === area)}
+            />
+          ))}
+          <BusinessGroupRow
+            label={businessAreaLabels.onsite}
+            businesses={nearbyBusinesses.filter((b) => b.area === "onsite")}
+          />
         </div>
       </div>
     </div>

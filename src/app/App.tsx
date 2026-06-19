@@ -288,29 +288,29 @@ export default function App() {
 
       {/* PROPERTY OVERVIEW */}
       <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
+        <div className="grid md:grid-cols-5 gap-12 md:gap-10 items-start">
+          <div className="md:col-span-2">
             <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">About the Property</p>
             <h2
               className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-8"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              A landmark address
-              <br />along Austin's RM 620 corridor.
+              At the center of a
+              <br />thriving business community.
             </h2>
             <p className="text-foreground/55 leading-relaxed mb-6 font-light">
-              620 Office Park is a premier Class A commercial development offering 48,000 square feet of
-              thoughtfully designed workspace. With four stories of contemporary office suites, the property
-              combines architectural distinction with the operational infrastructure modern businesses require.
+              620 Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
+              Plaza Volente and Anderson Mill to the east, Four Points dining and retail to the west, and
+              national brands, grocers, banks, and services lining RM 620 in both directions.
             </p>
             <p className="text-foreground/55 leading-relaxed font-light">
-              With direct frontage on Ranch Rd 620 N, tenants benefit from high-visibility highway access
-              in northwest Austin's Four Points submarket — steps from Chase Bank, Starbucks, H-E-B,
-              Target, and a full roster of dining and retail along the corridor.
+              That concentration of established businesses and everyday community activity is what makes
+              this location worth capitalizing on. Tenants gain the visibility, convenience, and foot traffic
+              of a proven market — right from the center of it all.
             </p>
           </div>
 
-          <div>
+          <div className="md:col-span-3">
             <PropertyLocationMap />
           </div>
         </div>
