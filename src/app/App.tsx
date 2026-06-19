@@ -3,6 +3,7 @@ import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import { PropertyLocationMap } from "./components/PropertyLocationMap";
 import { BenefitIcon, type BenefitIconId } from "./components/BenefitIcons";
 import { SpaceDetailModal } from "./components/SpaceDetailModal";
+import { GallerySlideshow } from "./components/GallerySlideshow";
 import { propertyLocation } from "../data/location";
 import {
   MapPin,
@@ -16,8 +17,6 @@ import {
 } from "lucide-react";
 
 const HERO_IMG = "/images/hero.png";
-const GALLERY_IMG_PARKING = "/images/gallery-parking.png";
-const GALLERY_IMG_WALKWAY = "/images/gallery-walkway.png";
 const GALLERY_IMG_BUILDING = "/images/gallery-building.png";
 const SPACE_MAIN_IMAGE = GALLERY_IMG_BUILDING;
 
@@ -381,29 +380,7 @@ export default function App() {
       {/* GALLERY */}
       <section id="gallery" className="max-w-7xl mx-auto px-6 py-24 md:py-32">
         <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-12">Gallery</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-border">
-          <div className="col-span-2 aspect-[16/9] bg-card overflow-hidden">
-            <img
-              src={GALLERY_IMG_PARKING}
-              alt="620 Office Park — parking lot with stone buildings and mature trees"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-          <div className="aspect-[4/3] bg-card overflow-hidden hidden md:block">
-            <img
-              src={GALLERY_IMG_WALKWAY}
-              alt="620 Office Park — covered stone walkway with landscaping"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-          <div className="col-span-2 md:col-span-3 aspect-[16/9] bg-card overflow-hidden">
-            <img
-              src={GALLERY_IMG_BUILDING}
-              alt="620 Office Park — two-story stone building with exterior staircase"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-        </div>
+        <GallerySlideshow />
       </section>
 
       {/* REVIEWS */}
