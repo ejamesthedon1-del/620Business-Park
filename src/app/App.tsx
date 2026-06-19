@@ -378,7 +378,7 @@ export default function App() {
       </section>
 
       {/* GALLERY */}
-      <section id="gallery" className="max-w-7xl mx-auto px-0 md:px-6 pt-6 md:pt-8 pb-16 md:pb-20">
+      <section id="gallery" className="max-w-7xl mx-auto px-4 md:px-6 pt-10 md:pt-8 pb-16 md:pb-20">
         <GallerySlideshow />
       </section>
 

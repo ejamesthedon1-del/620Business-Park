@@ -46,7 +46,7 @@ export function GallerySlideshow() {
       <CarouselContent className="ml-0">
         {galleryImages.map((image) => (
           <CarouselItem key={image.src} className="pl-0">
-            <div className="relative aspect-[4/5] min-h-[52vh] max-h-[78vh] md:aspect-[16/9] md:min-h-0 md:max-h-none overflow-hidden bg-card border-y md:border border-border">
+            <div className="relative aspect-[5/4] max-h-[40vh] md:aspect-[16/9] md:max-h-none overflow-hidden bg-card border border-border rounded-2xl md:rounded-none">
               <img
                 src={image.src}
                 alt={image.alt}
