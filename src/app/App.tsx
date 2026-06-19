@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ImageWithFallback } from "./components/figma/ImageWithFallback";
+import { PropertyLocationMap } from "./components/PropertyLocationMap";
+import { propertyLocation } from "../data/location";
 import {
   MapPin,
   ArrowRight,
@@ -294,7 +296,7 @@ export default function App() {
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               A landmark address
-              <br />in the heart of the district.
+              <br />along Austin's RM 620 corridor.
             </h2>
             <p className="text-foreground/55 leading-relaxed mb-6 font-light">
               620 Office Park is a premier Class A commercial development offering 48,000 square feet of
@@ -302,17 +304,14 @@ export default function App() {
               combines architectural distinction with the operational infrastructure modern businesses require.
             </p>
             <p className="text-foreground/55 leading-relaxed font-light">
-              Tenants enjoy unmatched proximity to regional transit, executive dining, and a curated roster
-              of professional services — all within walking distance of the building.
+              With direct frontage on Ranch Rd 620 N, tenants benefit from high-visibility highway access
+              in northwest Austin's Four Points submarket — steps from Chase Bank, Starbucks, H-E-B,
+              Target, and a full roster of dining and retail along the corridor.
             </p>
           </div>
 
           <div>
-            <img
-              src={HERO_IMG}
-              alt="620 Office Park — stone office buildings with parking and mature trees"
-              className="w-full aspect-[4/3] object-cover object-[center_85%] bg-card"
-            />
+            <PropertyLocationMap />
           </div>
         </div>
       </section>
@@ -518,7 +517,7 @@ export default function App() {
                   </div>
                   <div>
                     <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">Address</p>
-                    <p className="text-sm text-foreground">620 Office Park Drive, Suite 100</p>
+                    <p className="text-sm text-foreground">{propertyLocation.fullAddress}</p>
                   </div>
                 </div>
               </div>
