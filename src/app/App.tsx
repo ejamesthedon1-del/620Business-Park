@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import { PropertyLocationMap } from "./components/PropertyLocationMap";
 import { BenefitIcon, type BenefitIconId } from "./components/BenefitIcons";
+import { SpaceDetailModal } from "./components/SpaceDetailModal";
 import { propertyLocation } from "../data/location";
 import {
   MapPin,
@@ -18,6 +19,7 @@ const HERO_IMG = "/images/hero.png";
 const GALLERY_IMG_PARKING = "/images/gallery-parking.png";
 const GALLERY_IMG_WALKWAY = "/images/gallery-walkway.png";
 const GALLERY_IMG_BUILDING = "/images/gallery-building.png";
+const SPACE_MAIN_IMAGE = GALLERY_IMG_BUILDING;
 
 const spaces = [
   {
@@ -27,7 +29,6 @@ const spaces = [
     sqft: "1,850",
     available: "Immediate",
     rate: "$28 / SF / Yr",
-    image: "/images/gallery-building.png",
     features: ["Corner unit", "Private entrance", "Kitchenette", "2 private offices"],
   },
   {
@@ -37,7 +38,6 @@ const spaces = [
     sqft: "3,400",
     available: "August 1, 2026",
     rate: "$26 / SF / Yr",
-    image: "/images/gallery-walkway.png",
     features: ["Open floor plan", "Conference room", "Storage room", "Elevator access"],
   },
   {
@@ -47,7 +47,6 @@ const spaces = [
     sqft: "2,200",
     available: "Immediate",
     rate: "$27 / SF / Yr",
-    image: "/images/gallery-parking.png",
     features: ["City views", "Reception area", "4 private offices", "Break room"],
   },
 ];
@@ -107,6 +106,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", interest: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [selectedSpace, setSelectedSpace] = useState<(typeof spaces)[number] | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -118,6 +118,12 @@ export default function App() {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setNavOpen(false);
+  };
+
+  const inquireAboutSpace = (spaceId: string) => {
+    setForm((prev) => ({ ...prev, interest: spaceId }));
+    setSelectedSpace(null);
+    scrollTo("contact");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -264,13 +270,13 @@ export default function App() {
             {businessBenefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="group rounded-2xl border border-border bg-background p-8 md:p-10 flex flex-col gap-5 transition-colors duration-300 hover:border-accent/25 hover:bg-secondary/30"
+                className="group rounded-2xl border border-border bg-background p-6 md:p-8 flex flex-col gap-2 transition-colors duration-300 hover:border-accent/25 hover:bg-secondary/30"
               >
                 <BenefitIcon id={benefit.icon} />
                 <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
                   {benefit.title}
                 </h3>
-                <p className="text-sm text-foreground/55 font-light leading-relaxed">
+                <p className="text-sm text-foreground/55 font-light leading-snug">
                   {benefit.description}
                 </p>
               </div>
@@ -329,17 +335,19 @@ export default function App() {
 
           <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {spaces.map((s) => (
-              <div
+              <button
                 key={s.id}
-                className="rounded-3xl border border-border bg-background overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-300"
+                type="button"
+                onClick={() => setSelectedSpace(s)}
+                className="rounded-3xl border border-border bg-background overflow-hidden text-left group hover:shadow-md hover:border-accent/30 transition-all duration-300"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <ImageWithFallback
-                    src={s.image}
+                    src={SPACE_MAIN_IMAGE}
                     alt={`${s.id} — ${s.type}`}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/5 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/5 pointer-events-none" />
                   <span className="absolute top-4 right-4 text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full bg-white/90 text-foreground backdrop-blur-sm">
                     {s.available === "Immediate" ? "Available" : "Coming Soon"}
                   </span>
@@ -351,49 +359,22 @@ export default function App() {
                     >
                       {s.id}
                     </h3>
+                    <p className="mt-2 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-white/80 group-hover:text-white transition-colors">
+                      View Details
+                      <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+                    </p>
                   </div>
                 </div>
-
-                <div className="p-6 md:p-8 flex flex-col gap-6 flex-1">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Type</p>
-                    <p className="text-sm text-foreground/80">{s.type}</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Size</p>
-                    <p className="text-sm text-foreground/80">{s.sqft} SF</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Rate</p>
-                    <p className="text-sm text-foreground/80">{s.rate}</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Available</p>
-                    <p className="text-sm text-foreground/80">{s.available}</p>
-                  </div>
-                </div>
-
-                <ul className="flex flex-col gap-2 border-t border-border pt-5">
-                  {s.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5">
-                      <Check size={11} className="text-accent shrink-0" />
-                      <span className="text-xs text-foreground/55">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="mt-auto flex items-center gap-2 text-xs tracking-[0.1em] uppercase text-accent group-hover:gap-3 transition-all duration-200"
-                >
-                  Inquire About This Suite
-                  <ArrowRight size={11} />
-                </button>
-                </div>
-              </div>
+              </button>
             ))}
           </div>
+
+          <SpaceDetailModal
+            space={selectedSpace}
+            image={SPACE_MAIN_IMAGE}
+            onClose={() => setSelectedSpace(null)}
+            onInquire={inquireAboutSpace}
+          />
         </div>
       </section>
 
