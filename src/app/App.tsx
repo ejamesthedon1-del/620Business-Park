@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import { PropertyLocationMap } from "./components/PropertyLocationMap";
+import { BenefitIcon, type BenefitIconId } from "./components/BenefitIcons";
 import { propertyLocation } from "../data/location";
 import {
   MapPin,
@@ -11,11 +12,6 @@ import {
   Menu,
   X,
   Star,
-  Sparkles,
-  Users,
-  TrendingUp,
-  Shield,
-  type LucideIcon,
 } from "lucide-react";
 
 const HERO_IMG = "/images/hero.png";
@@ -56,24 +52,24 @@ const spaces = [
   },
 ];
 
-const businessBenefits: { icon: LucideIcon; title: string; description: string }[] = [
+const businessBenefits: { icon: BenefitIconId; title: string; description: string }[] = [
   {
-    icon: Sparkles,
+    icon: "impression",
     title: "Make a strong first impression",
     description: "Professional surroundings that signal credibility and help you win trust from the first meeting.",
   },
   {
-    icon: Users,
+    icon: "team",
     title: "Give your team room to perform",
     description: "Thoughtful layouts and quiet, well-managed spaces where people can focus and collaborate.",
   },
   {
-    icon: TrendingUp,
+    icon: "growth",
     title: "Grow without starting over",
     description: "Flexible suites that adapt as your business expands — so your space keeps pace with your ambition.",
   },
   {
-    icon: Shield,
+    icon: "confidence",
     title: "Operate with confidence",
     description: "On-site management and secure access mean fewer distractions and more time running your business.",
   },
@@ -264,24 +260,21 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {businessBenefits.map((benefit) => {
-              const Icon = benefit.icon;
-              return (
-                <div
-                  key={benefit.title}
-                  className="rounded-2xl border border-border bg-background p-8 md:p-10 flex flex-col gap-4"
-                >
-                  <Icon size={20} className="text-foreground/50" strokeWidth={1.5} />
-                  <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-sm text-foreground/55 font-light leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
+            {businessBenefits.map((benefit) => (
+              <div
+                key={benefit.title}
+                className="group rounded-2xl border border-border bg-background p-8 md:p-10 flex flex-col gap-5 transition-colors duration-300 hover:border-accent/25 hover:bg-secondary/30"
+              >
+                <BenefitIcon id={benefit.icon} />
+                <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-foreground/55 font-light leading-relaxed">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
