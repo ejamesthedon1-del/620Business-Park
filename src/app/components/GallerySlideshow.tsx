@@ -65,18 +65,18 @@ export function GallerySlideshow() {
         type="button"
         onClick={() => api?.scrollPrev()}
         aria-label="Previous slide"
-        className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/90 border border-border text-foreground hover:bg-white transition-colors"
+        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center text-white/85 hover:text-white transition-colors"
       >
-        <ChevronLeft size={18} />
+        <ChevronLeft size={36} strokeWidth={1.25} />
       </button>
 
       <button
         type="button"
         onClick={() => api?.scrollNext()}
         aria-label="Next slide"
-        className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/90 border border-border text-foreground hover:bg-white transition-colors"
+        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center text-white/85 hover:text-white transition-colors"
       >
-        <ChevronRight size={18} />
+        <ChevronRight size={36} strokeWidth={1.25} />
       </button>
 
       <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-10 flex items-center gap-2">

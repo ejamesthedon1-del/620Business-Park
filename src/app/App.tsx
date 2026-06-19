@@ -315,7 +315,7 @@ export default function App() {
       </section>
 
       {/* AVAILABLE SPACES */}
-      <section id="spaces" className="bg-card border-y border-border py-24 md:py-32">
+      <section id="spaces" className="bg-card border-y border-border pt-24 md:pt-32 pb-10 md:pb-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
@@ -378,13 +378,13 @@ export default function App() {
       </section>
 
       {/* GALLERY */}
-      <section id="gallery" className="max-w-7xl mx-auto px-6 py-24 md:py-32">
-        <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-12">Gallery</p>
+      <section id="gallery" className="max-w-7xl mx-auto px-6 pt-6 md:pt-8 pb-16 md:pb-20">
+        <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">Gallery</p>
         <GallerySlideshow />
       </section>
 
       {/* REVIEWS */}
-      <section id="reviews" className="border-t border-border py-24 md:py-32">
+      <section id="reviews" className="border-t border-border pt-16 md:pt-20 pb-24 md:pb-32">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4">What Tenants Say</p>
