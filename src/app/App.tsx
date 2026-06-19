@@ -379,6 +379,17 @@ export default function App() {
 
       {/* GALLERY */}
       <section id="gallery" className="max-w-7xl mx-auto px-4 md:px-6 pt-10 md:pt-8 pb-16 md:pb-20">
+        <div className="max-w-2xl mx-auto text-center mb-6 md:mb-8 px-2 md:px-0">
+          <h2
+            className="text-2xl md:text-4xl font-normal text-foreground leading-tight"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            A campus cared for, built for your team.
+          </h2>
+          <p className="text-sm md:text-base text-foreground/55 font-light mt-4 leading-relaxed">
+            Meticulously maintained grounds and professional surroundings — a quiet, welcoming environment your clients notice and your team enjoys every day.
+          </p>
+        </div>
         <GallerySlideshow />
       </section>
 

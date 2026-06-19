@@ -27,3 +27,21 @@
 .property-pin-marker {
   filter: drop-shadow(0 3px 10px rgba(26, 26, 24, 0.28));
 }
+
+@media (max-width: 767px) {
+  :root {
+    --card: #ffffff;
+    --secondary: #ffffff;
+    --muted: #ffffff;
+    --input-background: #ffffff;
+    --sidebar: #ffffff;
+  }
+
+  .leaflet-control-zoom a {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.9) !important;
+  }
+}
