@@ -46,14 +46,14 @@ export function GallerySlideshow() {
       <CarouselContent className="ml-0">
         {galleryImages.map((image) => (
           <CarouselItem key={image.src} className="pl-0">
-            <div className="relative aspect-[16/9] overflow-hidden bg-card border border-border">
+            <div className="relative aspect-[4/5] min-h-[52vh] max-h-[78vh] md:aspect-[16/9] md:min-h-0 md:max-h-none overflow-hidden bg-card border-y md:border border-border">
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
-              <p className="absolute bottom-4 left-4 md:bottom-6 md:left-6 text-[10px] md:text-xs tracking-[0.15em] uppercase text-white/85">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent pointer-events-none" />
+              <p className="absolute bottom-5 left-5 right-16 md:bottom-6 md:left-6 md:right-24 text-[11px] md:text-xs tracking-[0.15em] uppercase text-white/90 leading-snug">
                 {image.caption}
               </p>
             </div>

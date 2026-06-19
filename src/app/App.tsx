@@ -378,8 +378,8 @@ export default function App() {
       </section>
 
       {/* GALLERY */}
-      <section id="gallery" className="max-w-7xl mx-auto px-6 pt-6 md:pt-8 pb-16 md:pb-20">
-        <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">Gallery</p>
+      <section id="gallery" className="max-w-7xl mx-auto px-0 md:px-6 pt-6 md:pt-8 pb-16 md:pb-20">
+        <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4 md:mb-5 px-6 md:px-0">Gallery</p>
         <GallerySlideshow />
       </section>
 
