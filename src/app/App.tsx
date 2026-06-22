@@ -192,12 +192,12 @@ export default function App() {
       } else {
         setError(
           data.message ||
-            "Something went wrong. Please try again or email us directly at leasing@620officepark.com.",
+            "Something went wrong. Please try again or email us directly at perfectoffice512@gmail.com.",
         );
       }
     } catch {
       setError(
-        "We couldn't send your message. Please try again or email us directly at leasing@620officepark.com.",
+        "We couldn't send your message. Please try again or email us directly at perfectoffice512@gmail.com.",
       );
     } finally {
       setSubmitting(false);
@@ -558,7 +558,7 @@ export default function App() {
                   </div>
                   <div>
                     <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">Phone</p>
-                    <p className="text-sm text-foreground">(555) 620-0100</p>
+                    <p className="text-sm text-foreground">(512) 994-8075</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -567,7 +567,7 @@ export default function App() {
                   </div>
                   <div>
                     <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">Email</p>
-                    <p className="text-sm text-foreground">leasing@620officepark.com</p>
+                    <p className="text-sm text-foreground">perfectoffice512@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
