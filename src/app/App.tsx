@@ -77,7 +77,7 @@ const WEB3FORMS_ACCESS_KEY =
 
 const keyStats: { value: string; label: string }[] = [
   { value: "700–2,000", label: "SF Available" },
-  { value: "4", label: "Buildings On-Site" },
+  { value: "6", label: "Buildings On-Site" },
   { value: "2026", label: "Renovated" },
 ];
 
