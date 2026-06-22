@@ -367,36 +367,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* PROPERTY OVERVIEW */}
-      <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
-        <div className="grid md:grid-cols-5 gap-12 md:gap-10 items-start">
-          <div className="md:col-span-2">
-            <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">About the Property</p>
-            <h2
-              className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-8"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              At the center of a
-              <br />thriving business community.
-            </h2>
-            <p className="text-foreground/55 leading-relaxed mb-6 font-light">
-              620 Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
-              Plaza Volente and Anderson Mill to the east, Four Points dining and retail to the west, and
-              national brands, grocers, banks, and services lining RM 620 in both directions.
-            </p>
-            <p className="text-foreground/55 leading-relaxed font-light">
-              That concentration of established businesses and everyday community activity is what makes
-              this location worth capitalizing on. Tenants gain the visibility, convenience, and foot traffic
-              of a proven market — right from the center of it all.
-            </p>
-          </div>
-
-          <div className="md:col-span-3">
-            <PropertyLocationMap />
-          </div>
-        </div>
-      </section>
-
       {/* AVAILABLE SPACES */}
       <section id="spaces" className="bg-card border-y border-border pt-24 md:pt-32 pb-10 md:pb-12">
         <div className="max-w-7xl mx-auto px-6">
@@ -457,6 +427,36 @@ export default function App() {
             onClose={() => setSelectedSpace(null)}
             onInquire={inquireAboutSpace}
           />
+        </div>
+      </section>
+
+      {/* PROPERTY OVERVIEW */}
+      <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+        <div className="grid md:grid-cols-5 gap-12 md:gap-10 items-start">
+          <div className="md:col-span-2">
+            <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">About the Property</p>
+            <h2
+              className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-8"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              At the center of a
+              <br />thriving business community.
+            </h2>
+            <p className="text-foreground/55 leading-relaxed mb-6 font-light">
+              620 Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
+              Plaza Volente and Anderson Mill to the east, Four Points dining and retail to the west, and
+              national brands, grocers, banks, and services lining RM 620 in both directions.
+            </p>
+            <p className="text-foreground/55 leading-relaxed font-light">
+              That concentration of established businesses and everyday community activity is what makes
+              this location worth capitalizing on. Tenants gain the visibility, convenience, and foot traffic
+              of a proven market — right from the center of it all.
+            </p>
+          </div>
+
+          <div className="md:col-span-3">
+            <PropertyLocationMap />
+          </div>
         </div>
       </section>
 
