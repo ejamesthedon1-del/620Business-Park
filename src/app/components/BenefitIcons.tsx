@@ -1,8 +1,23 @@
-type BenefitIconId = "impression" | "team" | "growth" | "confidence";
+type BenefitIconId = "visibility" | "impression" | "team" | "growth" | "confidence";
 
 const FOREGROUND = "#1A1A18";
 const ACCENT = "#B8965A";
 const ACCENT_SOFT = "rgba(184, 150, 90, 0.22)";
+
+function VisibilityIcon() {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" className="w-full h-full">
+      <path
+        d="M3.5 16S8.5 8 16 8s12.5 8 12.5 8-5 8-12.5 8S3.5 16 3.5 16Z"
+        stroke={FOREGROUND}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <circle cx="16" cy="16" r="4.25" fill={ACCENT_SOFT} stroke={ACCENT} strokeWidth="1.5" />
+      <circle cx="16" cy="16" r="1.5" fill={ACCENT} />
+    </svg>
+  );
+}
 
 function ImpressionIcon() {
   return (
@@ -62,32 +77,30 @@ function ConfidenceIcon() {
 }
 
 const iconMap: Record<BenefitIconId, () => JSX.Element> = {
+  visibility: VisibilityIcon,
   impression: ImpressionIcon,
   team: TeamIcon,
   growth: GrowthIcon,
   confidence: ConfidenceIcon,
 };
 
-export function BenefitIcon({ id }: { id: BenefitIconId }) {
+export function BenefitIcon({
+  id,
+  size = "md",
+}: {
+  id: BenefitIconId;
+  size?: "md" | "lg";
+}) {
   const Icon = iconMap[id];
+  const isLg = size === "lg";
 
   return (
-    <div className="relative w-12 h-12 shrink-0">
-      <div
-        className="absolute inset-0 rounded-xl border border-accent/20 bg-gradient-to-br from-secondary to-background"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-[3px] rounded-[9px] border border-border/60 bg-background/80"
-        aria-hidden="true"
-      />
-      <div className="relative z-10 flex h-full w-full items-center justify-center p-2.5">
-        <Icon />
-      </div>
-      <div
-        className="pointer-events-none absolute -bottom-px left-3 right-3 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent"
-        aria-hidden="true"
-      />
+    <div
+      className={`relative shrink-0 flex items-center justify-center ${
+        isLg ? "w-14 h-14" : "w-11 h-11"
+      }`}
+    >
+      <Icon />
     </div>
   );
 }

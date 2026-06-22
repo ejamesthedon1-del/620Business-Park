@@ -21,7 +21,28 @@ const GALLERY_IMG_BUILDING = "/images/gallery-building.png";
 const SPACE_MAIN_IMAGE = GALLERY_IMG_BUILDING;
 const SUITE_110_IMAGE = "/images/suite-110.png";
 
-const spaces = [
+const SUITE_110_GALLERY = [
+  { src: "/images/suite-110.png", alt: "Suite 110 — private office with corner window" },
+  { src: "/images/suite-110-main.png", alt: "Suite 110 — open main room with built-in kitchenette" },
+  { src: "/images/suite-110-office.png", alt: "Suite 110 — bright private office with three windows" },
+  { src: "/images/suite-110-entry.png", alt: "Suite 110 — entry with kitchenette and keyless door" },
+  { src: "/images/suite-110-hallway.png", alt: "Suite 110 — hallway leading to private rooms" },
+  { src: "/images/suite-110-pantry.png", alt: "Suite 110 — pantry with butcher-block counter and storage" },
+];
+
+type SpaceItem = {
+  id: string;
+  floor: string;
+  type: string;
+  sqft: string;
+  available: string;
+  rate: string;
+  image: string;
+  features: string[];
+  gallery?: { src: string; alt: string }[];
+};
+
+const spaces: SpaceItem[] = [
   {
     id: "Suite 110",
     floor: "1st Floor",
@@ -30,27 +51,22 @@ const spaces = [
     available: "Immediate",
     rate: "$28 / SF / Yr",
     image: SUITE_110_IMAGE,
+    gallery: SUITE_110_GALLERY,
     features: ["Corner unit", "Private entrance", "Kitchenette", "2 private offices"],
   },
   {
     id: "Suite 220",
-    floor: "2nd Floor",
+    floor: "1st Floor",
     type: "Open Plan",
     sqft: "3,400",
-    available: "August 1, 2026",
-    rate: "$26 / SF / Yr",
-    image: SPACE_MAIN_IMAGE,
-    features: ["Open floor plan", "Conference room", "Storage room", "Elevator access"],
-  },
-  {
-    id: "Suite 310",
-    floor: "3rd Floor",
-    type: "Professional Suite",
-    sqft: "2,200",
     available: "Immediate",
-    rate: "$27 / SF / Yr",
-    image: SPACE_MAIN_IMAGE,
-    features: ["City views", "Reception area", "4 private offices", "Break room"],
+    rate: "$26 / SF / Yr",
+    image: "/images/suite-220.png",
+    gallery: [
+      { src: "/images/suite-220.png", alt: "Suite 220 — open room with tile flooring and bright windows" },
+      { src: "/images/suite-220-2.png", alt: "Suite 220 — open-plan layout with wood flooring and multiple rooms" },
+    ],
+    features: ["Open floor plan", "Conference room", "Storage room", "Elevator access"],
   },
 ];
 
@@ -68,13 +84,13 @@ const keyStats: { value: string; label: string }[] = [
 
 const businessBenefits: { icon: BenefitIconId; title: string; description: string }[] = [
   {
-    icon: "impression",
-    title: "Make a strong first impression",
-    description: "Professional surroundings that signal credibility and help you win trust from the first meeting.",
+    icon: "visibility",
+    title: "Prime Visibility on FM 620",
+    description: "Sit at the front of one of Austin's busiest corridors, surrounded by established businesses on both sides. Thousands of drivers pass this location daily — putting your brand in front of the right audience before they ever search for you online.",
   },
   {
     icon: "team",
-    title: "Give your team room to perform",
+    title: "Everything Within Reach",
     description: "Thoughtful layouts and quiet, well-managed spaces where people can focus and collaborate.",
   },
   {
@@ -353,20 +369,40 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-            {businessBenefits.map((benefit) => (
-              <div
-                key={benefit.title}
-                className="group rounded-2xl border border-border bg-background p-6 md:p-8 flex flex-col gap-2 transition-colors duration-300 hover:border-accent/25 hover:bg-secondary/30"
-              >
-                <BenefitIcon id={benefit.icon} />
-                <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
-                  {benefit.title}
-                </h3>
-                <p className="text-sm text-foreground/55 font-light leading-snug">
-                  {benefit.description}
-                </p>
-              </div>
-            ))}
+            {businessBenefits.map((benefit, i) => {
+              const featured = i === 0;
+              return (
+                <div
+                  key={benefit.title}
+                  className={`group rounded-2xl border border-border bg-background transition-colors duration-300 hover:border-accent/25 hover:bg-secondary/30 ${
+                    featured
+                      ? "sm:col-span-2 p-8 md:p-10 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-7"
+                      : "p-6 md:p-8 flex flex-col gap-2"
+                  }`}
+                >
+                  <BenefitIcon id={benefit.icon} size={featured ? "lg" : "md"} />
+                  {featured ? (
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-sm text-foreground/55 font-light leading-snug">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-sm text-foreground/55 font-light leading-snug">
+                        {benefit.description}
+                      </p>
+                    </>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -374,18 +410,17 @@ export default function App() {
       {/* AVAILABLE SPACES */}
       <section id="spaces" className="bg-background pt-24 md:pt-32 pb-10 md:pb-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-8">
-            <div>
-              <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-2">For Lease</p>
-              <h2
-                className="text-4xl md:text-5xl font-normal text-foreground"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Available Spaces
-              </h2>
-            </div>
-            <p className="text-foreground/50 text-sm font-light max-w-xs leading-relaxed">
-              Three distinct configurations to match your team's way of working.
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-2">For Lease</p>
+            <h2
+              className="text-4xl md:text-5xl font-normal text-foreground leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Available Spaces
+            </h2>
+            <p className="text-sm md:text-base text-foreground/55 font-light mt-2 leading-relaxed">
+              Flexible configurations to match
+              <br />your team&apos;s way of working.
             </p>
           </div>
 
@@ -427,6 +462,7 @@ export default function App() {
           <SpaceDetailModal
             space={selectedSpace}
             image={selectedSpace?.image ?? SPACE_MAIN_IMAGE}
+            gallery={selectedSpace?.gallery}
             onClose={() => setSelectedSpace(null)}
             onInquire={inquireAboutSpace}
           />
