@@ -22,12 +22,12 @@ const SPACE_MAIN_IMAGE = GALLERY_IMG_BUILDING;
 const SUITE_110_IMAGE = "/images/suite-110.png";
 
 const SUITE_110_GALLERY = [
-  { src: "/images/suite-110.png", alt: "Suite 110 — private office with corner window" },
-  { src: "/images/suite-110-main.png", alt: "Suite 110 — open main room with built-in kitchenette" },
-  { src: "/images/suite-110-office.png", alt: "Suite 110 — bright private office with three windows" },
-  { src: "/images/suite-110-entry.png", alt: "Suite 110 — entry with kitchenette and keyless door" },
-  { src: "/images/suite-110-hallway.png", alt: "Suite 110 — hallway leading to private rooms" },
-  { src: "/images/suite-110-pantry.png", alt: "Suite 110 — pantry with butcher-block counter and storage" },
+  { src: "/images/suite-110.png", alt: "Suite 106 — private office with corner window" },
+  { src: "/images/suite-110-main.png", alt: "Suite 106 — open main room with built-in kitchenette" },
+  { src: "/images/suite-110-office.png", alt: "Suite 106 — bright private office with three windows" },
+  { src: "/images/suite-110-entry.png", alt: "Suite 106 — entry with kitchenette and keyless door" },
+  { src: "/images/suite-110-hallway.png", alt: "Suite 106 — hallway leading to private rooms" },
+  { src: "/images/suite-110-pantry.png", alt: "Suite 106 — pantry with butcher-block counter and storage" },
 ];
 
 type SpaceItem = {
@@ -44,10 +44,10 @@ type SpaceItem = {
 
 const spaces: SpaceItem[] = [
   {
-    id: "Suite 110",
+    id: "Suite 106",
     floor: "1st Floor",
     type: "Executive Suite",
-    sqft: "1,850",
+    sqft: "1,940",
     available: "Immediate",
     rate: "$28 / SF / Yr",
     image: SUITE_110_IMAGE,
@@ -55,16 +55,16 @@ const spaces: SpaceItem[] = [
     features: ["Corner unit", "Private entrance", "Kitchenette", "2 private offices"],
   },
   {
-    id: "Suite 220",
+    id: "Suite 203",
     floor: "1st Floor",
     type: "Open Plan",
-    sqft: "3,400",
+    sqft: "1,385",
     available: "Immediate",
     rate: "$26 / SF / Yr",
     image: "/images/suite-220.png",
     gallery: [
-      { src: "/images/suite-220.png", alt: "Suite 220 — open room with tile flooring and bright windows" },
-      { src: "/images/suite-220-2.png", alt: "Suite 220 — open-plan layout with wood flooring and multiple rooms" },
+      { src: "/images/suite-220.png", alt: "Suite 203 — open room with tile flooring and bright windows" },
+      { src: "/images/suite-220-2.png", alt: "Suite 203 — open-plan layout with wood flooring and multiple rooms" },
     ],
     features: ["Open floor plan", "Conference room", "Storage room", "Elevator access"],
   },
@@ -76,10 +76,9 @@ const WEB3FORMS_ACCESS_KEY =
   import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? "REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY";
 
 const keyStats: { value: string; label: string }[] = [
-  { value: "1,000–3,200", label: "SF Available" },
+  { value: "700–2,000", label: "SF Available" },
   { value: "4", label: "Buildings On-Site" },
-  { value: "4:1,000", label: "Spaces per 1,000 SF" },
-  { value: "2024", label: "Renovated" },
+  { value: "2026", label: "Renovated" },
 ];
 
 const businessBenefits: { icon: BenefitIconId; title: string; description: string }[] = [
@@ -328,18 +327,16 @@ export default function App() {
       {/* KEY STATS */}
       <section className="bg-card -mt-px">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 border-y border-border">
+          <div className="grid grid-cols-3 border-y border-border">
             {keyStats.map((stat, i) => (
               <div
                 key={stat.label}
-                className={`flex flex-col items-center text-center py-8 md:py-10 px-4 border-border ${
-                  i % 2 === 0 ? "border-r" : ""
-                } ${i === 1 ? "md:border-r" : ""} ${
-                  i < 2 ? "border-b md:border-b-0" : ""
+                className={`flex flex-col items-center text-center py-8 md:py-10 px-3 md:px-4 border-border ${
+                  i < keyStats.length - 1 ? "border-r" : ""
                 }`}
               >
                 <span
-                  className="text-2xl md:text-3xl lg:text-4xl font-normal text-foreground leading-none whitespace-nowrap"
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-foreground leading-none whitespace-nowrap"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                   {stat.value}
