@@ -4,6 +4,7 @@ import { PropertyLocationMap } from "./components/PropertyLocationMap";
 import { BenefitIcon, type BenefitIconId } from "./components/BenefitIcons";
 import { SpaceDetailModal } from "./components/SpaceDetailModal";
 import { GallerySlideshow } from "./components/GallerySlideshow";
+import { ReviewsCarousel } from "./components/ReviewsCarousel";
 import { propertyLocation } from "../data/location";
 import {
   MapPin,
@@ -13,7 +14,6 @@ import {
   Check,
   Menu,
   X,
-  Star,
 } from "lucide-react";
 
 const HERO_IMG = "/images/hero.png";
@@ -153,8 +153,8 @@ export default function App() {
         },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `New leasing inquiry — ${form.name || "620 Office Park"}`,
-          from_name: "620 Office Park Website",
+          subject: `New leasing inquiry — ${form.name || "620 Oaks Office Park"}`,
+          from_name: "620 Oaks Office Park Website",
           name: form.name,
           email: form.email,
           phone: form.phone,
@@ -217,7 +217,7 @@ export default function App() {
               className="text-sm md:text-base tracking-[0.25em] uppercase text-foreground/80 font-light"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
-              Office Park
+              Oaks Office Park
             </span>
           </button>
 
@@ -268,7 +268,7 @@ export default function App() {
         <div className="absolute inset-x-0 top-0 h-[70%] md:h-[64%] z-[1] bg-gradient-to-b from-[#6aabda] from-0% via-[#7eb8dc] via-35% via-[#91c5e6] via-65% to-transparent to-100% pointer-events-none" />
         <img
           src={HERO_IMG}
-          alt="620 Office Park — stone office buildings with parking and mature trees"
+          alt="620 Oaks Office Park — stone office buildings with parking and mature trees"
           className="absolute bottom-0 left-0 right-0 w-full h-[56%] md:h-[60%] object-cover object-[center_64%] translate-y-4 md:translate-y-5"
         />
         <div className="absolute inset-x-0 bottom-0 h-44 md:h-56 bg-[linear-gradient(to_top,var(--card)_0%,color-mix(in_srgb,var(--card)_90%,transparent)_10%,color-mix(in_srgb,var(--card)_65%,transparent)_26%,color-mix(in_srgb,var(--card)_38%,transparent)_42%,color-mix(in_srgb,var(--card)_15%,transparent)_58%,transparent_78%)] pointer-events-none z-[2]" />
@@ -368,11 +368,11 @@ export default function App() {
       </section>
 
       {/* AVAILABLE SPACES */}
-      <section id="spaces" className="bg-card border-y border-border pt-24 md:pt-32 pb-10 md:pb-12">
+      <section id="spaces" className="bg-background pt-24 md:pt-32 pb-10 md:pb-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-8">
             <div>
-              <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4">For Lease</p>
+              <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-2">For Lease</p>
               <h2
                 className="text-4xl md:text-5xl font-normal text-foreground"
                 style={{ fontFamily: "'Playfair Display', serif" }}
@@ -385,13 +385,13 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
             {spaces.map((s) => (
               <button
                 key={s.id}
                 type="button"
                 onClick={() => setSelectedSpace(s)}
-                className="rounded-3xl border border-border bg-background overflow-hidden text-left group hover:shadow-md hover:border-accent/30 transition-all duration-300"
+                className="bg-background overflow-hidden text-left group transition-all duration-300"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <ImageWithFallback
@@ -399,23 +399,22 @@ export default function App() {
                     alt={`${s.id} — ${s.type}`}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/5 pointer-events-none" />
                   <span className="absolute top-4 right-4 text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full bg-white/90 text-foreground backdrop-blur-sm">
                     {s.available === "Immediate" ? "Available" : "Coming Soon"}
                   </span>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-7">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-white/75 mb-1">{s.floor}</p>
-                    <h3
-                      className="text-2xl md:text-[1.65rem] text-white font-normal leading-tight"
-                      style={{ fontFamily: "'Playfair Display', serif" }}
-                    >
-                      {s.id}
-                    </h3>
-                    <p className="mt-2 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-white/80 group-hover:text-white transition-colors">
-                      View Details
-                      <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
-                    </p>
-                  </div>
+                </div>
+                <div className="pt-3">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">{s.floor}</p>
+                  <h3
+                    className="text-xl md:text-2xl text-foreground font-normal leading-tight"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    {s.id}
+                  </h3>
+                  <p className="mt-1.5 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-accent group-hover:gap-3 transition-all">
+                    View Details
+                    <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+                  </p>
                 </div>
               </button>
             ))}
@@ -443,7 +442,7 @@ export default function App() {
               <br />thriving business community.
             </h2>
             <p className="text-foreground/55 leading-relaxed mb-6 font-light">
-              620 Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
+              620 Oaks Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
               Plaza Volente and Anderson Mill to the east, Four Points dining and retail to the west, and
               national brands, grocers, banks, and services lining RM 620 in both directions.
             </p>
@@ -467,7 +466,8 @@ export default function App() {
             className="text-2xl md:text-4xl font-normal text-foreground leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            A campus cared for, built for your team.
+            A campus cared for,
+            <br />built for your team.
           </h2>
           <p className="text-sm md:text-base text-foreground/55 font-light mt-4 leading-relaxed">
             Meticulously maintained grounds and professional surroundings — a quiet, welcoming environment your clients notice and your team enjoys every day.
@@ -488,33 +488,11 @@ export default function App() {
               Trusted by Growing Businesses
             </h2>
             <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
-              Hear from teams who chose 620 Office Park as their home base.
+              Hear from teams who chose 620 Oaks Office Park as their home base.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {reviews.map((review) => (
-              <div
-                key={review.name}
-                className="rounded-3xl border border-border bg-background p-8 md:p-10 flex flex-col gap-5"
-              >
-                <div className="flex gap-1">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <Star key={i} size={14} className="text-accent fill-accent" />
-                  ))}
-                </div>
-                <p className="text-sm text-foreground/70 font-light leading-relaxed flex-1">
-                  &ldquo;{review.quote}&rdquo;
-                </p>
-                <div className="border-t border-border pt-5">
-                  <p className="text-sm font-medium text-foreground">{review.name}</p>
-                  <p className="text-xs text-foreground/50 mt-1">
-                    {review.company} · {review.suite}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ReviewsCarousel reviews={reviews} />
         </div>
       </section>
 
@@ -581,7 +559,7 @@ export default function App() {
                     Message received.
                   </h3>
                   <p className="text-foreground/50 font-light leading-relaxed max-w-xs">
-                    Thank you for your interest in 620 Office Park. A member of our leasing team will be in touch shortly.
+                    Thank you for your interest in 620 Oaks Office Park. A member of our leasing team will be in touch shortly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -705,10 +683,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="text-[10px] tracking-[0.2em] uppercase text-accent">620</span>
-            <span className="text-[10px] tracking-[0.2em] uppercase text-foreground/40">Office Park</span>
+            <span className="text-[10px] tracking-[0.2em] uppercase text-foreground/40">Oaks Office Park</span>
           </div>
           <p className="text-[10px] tracking-[0.1em] text-muted-foreground">
-            © 2026 620 Office Park. All rights reserved.
+            © 2026 620 Oaks Office Park. All rights reserved.
           </p>
           <div className="flex gap-6">
             {navLinks.map((l) => (

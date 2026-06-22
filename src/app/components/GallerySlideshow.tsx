@@ -10,17 +10,17 @@ import {
 const galleryImages = [
   {
     src: "/images/gallery-parking.png",
-    alt: "620 Office Park — parking lot with stone buildings and mature trees",
+    alt: "620 Oaks Office Park — parking lot with stone buildings and mature trees",
     caption: "Campus parking and tree-lined grounds",
   },
   {
     src: "/images/gallery-walkway.png",
-    alt: "620 Office Park — covered stone walkway with landscaping",
+    alt: "620 Oaks Office Park — covered stone walkway with landscaping",
     caption: "Covered walkways between suites",
   },
   {
     src: "/images/gallery-building.png",
-    alt: "620 Office Park — two-story stone building with exterior staircase",
+    alt: "620 Oaks Office Park — two-story stone building with exterior staircase",
     caption: "Limestone architecture with professional curb appeal",
   },
 ];

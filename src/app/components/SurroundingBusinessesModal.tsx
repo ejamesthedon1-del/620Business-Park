@@ -85,7 +85,7 @@ export function SurroundingBusinessesModal({
             Surrounding businesses
           </DialogTitle>
           <DialogDescription className="text-sm text-foreground/55 font-light">
-            National brands, dining, and services along {highway.shortName} near 620 Office Park.
+            National brands, dining, and services along {highway.shortName} near 620 Oaks Office Park.
           </DialogDescription>
         </DialogHeader>
 

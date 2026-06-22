@@ -69,9 +69,9 @@ function createCampusLabelIcon() {
       white-space: nowrap;
       box-shadow: 0 1px 4px rgba(0,0,0,0.12);
       pointer-events: none;
-    ">620 Office Park</span>`,
-    iconSize: [108, 18],
-    iconAnchor: [54, 9],
+    ">620 Oaks Office Park</span>`,
+    iconSize: [140, 18],
+    iconAnchor: [70, 9],
   });
 }
 

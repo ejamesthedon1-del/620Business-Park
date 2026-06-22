@@ -1,5 +1,5 @@
 export const propertyLocation = {
-  name: "620 Office Park",
+  name: "620 Oaks Office Park",
   address: "10713 Ranch Rd 620 N",
   city: "Austin, TX",
   zip: "78726",
@@ -89,7 +89,7 @@ export const plazaClusters: Record<string, PlazaCluster> = {
   },
   "620-office-park": {
     id: "620-office-park",
-    name: "620 Office Park",
+    name: "620 Oaks Office Park",
     center: { lat: 30.43227, lng: -97.8415 },
     spreadRadius: 0,
     highlightRadius: 0,
