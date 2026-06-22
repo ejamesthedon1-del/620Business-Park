@@ -50,6 +50,18 @@ const spaces = [
   },
 ];
 
+// Web3Forms access key — destination inbox is set when you create the key at https://web3forms.com.
+// Stored in .env.local as VITE_WEB3FORMS_ACCESS_KEY (the key is safe to expose publicly).
+const WEB3FORMS_ACCESS_KEY =
+  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? "REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY";
+
+const keyStats: { value: string; label: string }[] = [
+  { value: "1,000–3,200", label: "SF Available" },
+  { value: "4", label: "Buildings On-Site" },
+  { value: "4:1,000", label: "Spaces per 1,000 SF" },
+  { value: "2024", label: "Renovated" },
+];
+
 const businessBenefits: { icon: BenefitIconId; title: string; description: string }[] = [
   {
     icon: "impression",
@@ -105,6 +117,8 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", interest: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [selectedSpace, setSelectedSpace] = useState<(typeof spaces)[number] | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -125,9 +139,50 @@ export default function App() {
     scrollTo("contact");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setSubmitting(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New leasing inquiry — ${form.name || "620 Office Park"}`,
+          from_name: "620 Office Park Website",
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          space_of_interest: form.interest || "Not specified",
+          message: form.message,
+          replyto: form.email,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setForm({ name: "", company: "", email: "", phone: "", interest: "", message: "" });
+      } else {
+        setError(
+          data.message ||
+            "Something went wrong. Please try again or email us directly at leasing@620officepark.com.",
+        );
+      }
+    } catch {
+      setError(
+        "We couldn't send your message. Please try again or email us directly at leasing@620officepark.com.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const navLinks = [
@@ -214,7 +269,7 @@ export default function App() {
         <img
           src={HERO_IMG}
           alt="620 Office Park — stone office buildings with parking and mature trees"
-          className="absolute bottom-0 left-0 right-0 w-full h-[56%] md:h-[60%] object-cover object-top translate-y-4 md:translate-y-5"
+          className="absolute bottom-0 left-0 right-0 w-full h-[56%] md:h-[60%] object-cover object-[center_64%] translate-y-4 md:translate-y-5"
         />
         <div className="absolute inset-x-0 bottom-0 h-44 md:h-56 bg-[linear-gradient(to_top,var(--card)_0%,color-mix(in_srgb,var(--card)_90%,transparent)_10%,color-mix(in_srgb,var(--card)_65%,transparent)_26%,color-mix(in_srgb,var(--card)_38%,transparent)_42%,color-mix(in_srgb,var(--card)_15%,transparent)_58%,transparent_78%)] pointer-events-none z-[2]" />
 
@@ -250,8 +305,36 @@ export default function App() {
         </div>
       </section>
 
+      {/* KEY STATS */}
+      <section className="bg-card -mt-px">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 border-y border-border">
+            {keyStats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`flex flex-col items-center text-center py-8 md:py-10 px-4 border-border ${
+                  i % 2 === 0 ? "border-r" : ""
+                } ${i === 1 ? "md:border-r" : ""} ${
+                  i < 2 ? "border-b md:border-b-0" : ""
+                }`}
+              >
+                <span
+                  className="text-2xl md:text-3xl lg:text-4xl font-normal text-foreground leading-none whitespace-nowrap"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                >
+                  {stat.value}
+                </span>
+                <span className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-muted-foreground mt-3">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* WHY OUR SPACES */}
-      <section id="overview" className="border-b border-border bg-card -mt-px">
+      <section id="overview" className="border-b border-border bg-card">
         <div className="max-w-7xl mx-auto px-6 py-14 md:py-20">
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <h2
@@ -598,12 +681,17 @@ export default function App() {
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-xs text-destructive leading-relaxed">{error}</p>
+                  )}
+
                   <button
                     type="submit"
-                    className="flex items-center justify-center gap-3 px-7 py-4 bg-accent text-accent-foreground text-xs tracking-[0.15em] uppercase hover:bg-accent/90 transition-colors duration-200 mt-2"
+                    disabled={submitting}
+                    className="flex items-center justify-center gap-3 px-7 py-4 bg-accent text-accent-foreground text-xs tracking-[0.15em] uppercase hover:bg-accent/90 transition-colors duration-200 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Send Inquiry
-                    <ArrowRight size={13} />
+                    {submitting ? "Sending..." : "Send Inquiry"}
+                    {!submitting && <ArrowRight size={13} />}
                   </button>
                 </form>
               )}
