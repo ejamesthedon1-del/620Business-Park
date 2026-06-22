@@ -19,6 +19,7 @@ import {
 const HERO_IMG = "/images/hero.png";
 const GALLERY_IMG_BUILDING = "/images/gallery-building.png";
 const SPACE_MAIN_IMAGE = GALLERY_IMG_BUILDING;
+const SUITE_110_IMAGE = "/images/suite-110.png";
 
 const spaces = [
   {
@@ -28,6 +29,7 @@ const spaces = [
     sqft: "1,850",
     available: "Immediate",
     rate: "$28 / SF / Yr",
+    image: SUITE_110_IMAGE,
     features: ["Corner unit", "Private entrance", "Kitchenette", "2 private offices"],
   },
   {
@@ -37,6 +39,7 @@ const spaces = [
     sqft: "3,400",
     available: "August 1, 2026",
     rate: "$26 / SF / Yr",
+    image: SPACE_MAIN_IMAGE,
     features: ["Open floor plan", "Conference room", "Storage room", "Elevator access"],
   },
   {
@@ -46,6 +49,7 @@ const spaces = [
     sqft: "2,200",
     available: "Immediate",
     rate: "$27 / SF / Yr",
+    image: SPACE_MAIN_IMAGE,
     features: ["City views", "Reception area", "4 private offices", "Break room"],
   },
 ];
@@ -341,7 +345,7 @@ export default function App() {
               className="text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Everything Your Business Needs to Thrive
+              Choosing the Right Space for Your Business Is Essential
             </h2>
             <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
               The right space does more than hold your team — it elevates how you work, how you&apos;re seen, and how fast you can grow.
@@ -395,7 +399,7 @@ export default function App() {
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <ImageWithFallback
-                    src={SPACE_MAIN_IMAGE}
+                    src={s.image}
                     alt={`${s.id} — ${s.type}`}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   />
@@ -422,7 +426,7 @@ export default function App() {
 
           <SpaceDetailModal
             space={selectedSpace}
-            image={SPACE_MAIN_IMAGE}
+            image={selectedSpace?.image ?? SPACE_MAIN_IMAGE}
             onClose={() => setSelectedSpace(null)}
             onInquire={inquireAboutSpace}
           />
