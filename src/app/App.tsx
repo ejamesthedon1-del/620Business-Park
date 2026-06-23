@@ -461,7 +461,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16">
             {/* Left: Info */}
-            <div>
+            <div className="text-center">
               <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-3">Get in Touch</p>
               <h2
                 className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-4"
@@ -470,34 +470,34 @@ export default function App() {
                 Ready to make
                 <br />620 yours?
               </h2>
-              <p className="text-foreground/50 font-light leading-relaxed mb-8 max-w-sm">
+              <p className="text-foreground/50 font-light leading-relaxed mb-8 max-w-sm mx-auto">
                 Reach out to schedule a private tour or request a lease proposal. We typically respond within one business day.
               </p>
 
               <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center gap-4">
                   <div className="w-10 h-10 border border-border flex items-center justify-center shrink-0">
                     <Phone size={14} className="text-accent" />
                   </div>
-                  <div>
+                  <div className="text-left">
                     <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">Phone</p>
                     <p className="text-sm text-foreground">(512) 994-8075</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center gap-4">
                   <div className="w-10 h-10 border border-border flex items-center justify-center shrink-0">
                     <Mail size={14} className="text-accent" />
                   </div>
-                  <div>
+                  <div className="text-left">
                     <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">Email</p>
                     <p className="text-sm text-foreground">perfectoffice512@gmail.com</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center gap-4">
                   <div className="w-10 h-10 border border-border flex items-center justify-center shrink-0">
                     <MapPin size={14} className="text-accent" />
                   </div>
-                  <div>
+                  <div className="text-left">
                     <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-0.5">Address</p>
                     <p className="text-sm text-foreground">{propertyLocation.fullAddress}</p>
                   </div>
