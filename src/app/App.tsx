@@ -238,16 +238,16 @@ export default function App() {
           {/* Center: logo */}
           <button
             onClick={() => scrollTo("hero")}
-            className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 group whitespace-nowrap"
+            className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5 group whitespace-nowrap"
           >
             <span
-              className="text-base md:text-xl tracking-[0.2em] uppercase text-foreground font-bold"
+              className="text-base md:text-xl tracking-[0.08em] uppercase text-foreground font-bold"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               620
             </span>
             <span
-              className="text-base md:text-xl tracking-[0.15em] uppercase text-foreground font-bold"
+              className="text-base md:text-xl tracking-[0.06em] uppercase text-foreground font-bold"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               Oaks Office Park
