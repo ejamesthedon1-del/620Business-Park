@@ -332,7 +332,7 @@ export default function App() {
       </section>
 
       {/* REVIEWS */}
-      <section id="reviews" className="border-b border-border bg-card py-14 md:py-20">
+      <section id="reviews" className="bg-card py-14 md:py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4">What Tenants Say</p>
@@ -415,32 +415,28 @@ export default function App() {
 
       {/* PROPERTY OVERVIEW */}
       <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
-        <div className="grid md:grid-cols-5 gap-12 md:gap-10 items-start">
-          <div className="md:col-span-2">
-            <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">About the Property</p>
-            <h2
-              className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-8"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              At the center of a
-              <br />thriving business community.
-            </h2>
-            <p className="text-foreground/55 leading-relaxed mb-6 font-light">
-              620 Oaks Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
-              Plaza Volente and Anderson Mill to the east, Four Points dining and retail to the west, and
-              national brands, grocers, banks, and services lining RM 620 in both directions.
-            </p>
-            <p className="text-foreground/55 leading-relaxed font-light">
-              That concentration of established businesses and everyday community activity is what makes
-              this location worth capitalizing on. Tenants gain the visibility, convenience, and foot traffic
-              of a proven market — right from the center of it all.
-            </p>
-          </div>
-
-          <div className="md:col-span-3">
-            <PropertyLocationMap />
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4">About the Property</p>
+          <h2
+            className="text-4xl md:text-5xl font-normal text-foreground leading-tight"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            At the center of a
+            <br />thriving business community.
+          </h2>
+          <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
+            620 Oaks Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
+            Plaza Volente and Anderson Mill to the east, Four Points dining and retail to the west, and
+            national brands, grocers, banks, and services lining RM 620 in both directions.
+          </p>
+          <p className="text-sm md:text-base text-foreground/55 font-light mt-4 leading-relaxed">
+            That concentration of established businesses and everyday community activity is what makes
+            this location worth capitalizing on. Tenants gain the visibility, convenience, and foot traffic
+            of a proven market — right from the center of it all.
+          </p>
         </div>
+
+        <PropertyLocationMap />
       </section>
 
       {/* CONTACT */}
