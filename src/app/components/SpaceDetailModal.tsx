@@ -65,7 +65,7 @@ export function SpaceDetailModal({
 
   return (
     <Dialog open={!!space} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-lg gap-0 p-0 overflow-hidden rounded-2xl border-border max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-lg gap-0 p-0 rounded-2xl border-border max-h-[90dvh] overflow-y-auto overflow-x-hidden">
         {space && (
           <>
             {hasGallery ? (
@@ -90,7 +90,7 @@ export function SpaceDetailModal({
                     ))}
                   </CarouselContent>
 
-                  <span className="absolute top-4 right-4 z-10 text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full bg-white/90 text-foreground backdrop-blur-sm">
+                  <span className="absolute top-4 left-4 z-10 text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full bg-white/90 text-foreground backdrop-blur-sm">
                     {space.available === "Immediate" ? "Available Now" : "Coming Soon"}
                   </span>
 
@@ -143,7 +143,7 @@ export function SpaceDetailModal({
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute top-4 right-4 text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full bg-white/90 text-foreground backdrop-blur-sm">
+                <span className="absolute top-4 left-4 text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full bg-white/90 text-foreground backdrop-blur-sm">
                   {space.available === "Immediate" ? "Available Now" : "Coming Soon"}
                 </span>
               </div>
