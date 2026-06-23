@@ -446,14 +446,9 @@ export default function App() {
             <br />thriving business community.
           </h2>
           <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
-            620 Oaks Office Park sits at the crossroads of northwest Austin's busiest commercial corridors —
-            Plaza Volente and Anderson Mill to the east, Four Points dining and retail to the west, and
-            national brands, grocers, banks, and services lining RM 620 in both directions.
-          </p>
-          <p className="text-sm md:text-base text-foreground/55 font-light mt-4 leading-relaxed">
-            That concentration of established businesses and everyday community activity is what makes
-            this location worth capitalizing on. Tenants gain the visibility, convenience, and foot traffic
-            of a proven market — right from the center of it all.
+            Located directly on Highway 620, placing your business at the center of one of the area's
+            busiest commercial corridors and minutes from the clients, services, and opportunities that
+            drive growth.
           </p>
         </div>
 
