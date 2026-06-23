@@ -415,6 +415,7 @@ export default function App() {
                   >
                     {s.id}
                   </h3>
+                  <p className="text-sm text-foreground/60 font-light leading-tight mt-0.5">{s.sqft} SF</p>
                   <p className="mt-1.5 flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-accent group-hover:gap-3 transition-all">
                     View Details
                     <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
@@ -461,15 +462,15 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-16">
             {/* Left: Info */}
             <div>
-              <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-5">Get in Touch</p>
+              <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-3">Get in Touch</p>
               <h2
-                className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-8"
+                className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-4"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 Ready to make
                 <br />620 yours?
               </h2>
-              <p className="text-foreground/50 font-light leading-relaxed mb-12 max-w-sm">
+              <p className="text-foreground/50 font-light leading-relaxed mb-8 max-w-sm">
                 Reach out to schedule a private tour or request a lease proposal. We typically respond within one business day.
               </p>
 
