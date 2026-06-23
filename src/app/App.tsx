@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import { PropertyLocationMap } from "./components/PropertyLocationMap";
-import { BenefitIcon, type BenefitIconId } from "./components/BenefitIcons";
 import { SpaceDetailModal } from "./components/SpaceDetailModal";
-import { GallerySlideshow } from "./components/GallerySlideshow";
 import { ReviewsCarousel } from "./components/ReviewsCarousel";
 import { propertyLocation } from "../data/location";
 import {
@@ -65,8 +63,12 @@ const spaces: SpaceItem[] = [
     gallery: [
       { src: "/images/suite-220.png", alt: "Suite 203 — open room with tile flooring and bright windows" },
       { src: "/images/suite-220-2.png", alt: "Suite 203 — open-plan layout with wood flooring and multiple rooms" },
+      { src: "/images/suite-220-3.png", alt: "Suite 203 — wood-paneled office with recessed lighting" },
+      { src: "/images/suite-220-4.png", alt: "Suite 203 — private office with built-in cabinetry and desk" },
+      { src: "/images/suite-220-5.png", alt: "Suite 203 — bright office with multiple windows and wood flooring" },
+      { src: "/images/suite-220-6.png", alt: "Suite 203 — private restroom with vanity and vessel sink" },
     ],
-    features: ["Open floor plan", "Conference room", "Storage room", "Elevator access"],
+    features: ["Open floor plan", "Conference room", "Storage room"],
   },
 ];
 
@@ -81,53 +83,34 @@ const keyStats: { value: string; label: string }[] = [
   { value: "2026", label: "Renovated" },
 ];
 
-const businessBenefits: { icon: BenefitIconId; title: string; description: string }[] = [
-  {
-    icon: "visibility",
-    title: "Prime Visibility on FM 620",
-    description: "Sit at the front of one of Austin's busiest corridors, surrounded by established businesses on both sides. Thousands of drivers pass this location daily — putting your brand in front of the right audience before they ever search for you online.",
-  },
-  {
-    icon: "team",
-    title: "Everything Within Reach",
-    description: "Thoughtful layouts and quiet, well-managed spaces where people can focus and collaborate.",
-  },
-  {
-    icon: "growth",
-    title: "Grow without starting over",
-    description: "Flexible suites that adapt as your business expands — so your space keeps pace with your ambition.",
-  },
-  {
-    icon: "confidence",
-    title: "Operate with confidence",
-    description: "On-site management and secure access mean fewer distractions and more time running your business.",
-  },
-];
-
 const reviews = [
   {
-    name: "Sarah Chen",
-    company: "Meridian Legal Group",
-    suite: "Suite 220",
+    name: "Larrisa Rangel",
+    source: "Google Review",
     rating: 5,
     quote:
-      "Moving here was one of the best decisions we made for the firm. The building is impeccably maintained, parking is easy, and our clients consistently comment on how professional the space feels.",
+      "This is a great location for a business. The buildings are well kept, the management is awesome, and the onsite grounds caretaker is always on top of things. The rent is priced well for the area and the traffic for business is good.",
   },
   {
-    name: "James Whitfield",
-    company: "Whitfield Advisory",
-    suite: "Suite 110",
+    name: "Annjanette Arviso",
+    source: "Google Review",
     rating: 5,
     quote:
-      "The on-site management team is responsive and genuinely helpful. From day one, setup was smooth and we've had zero downtime — exactly what a growing business needs.",
+      "Best landlord ever!! He gets things done in a timely manner if anything goes wrong — very fair and not overbearing, and keeps up with his buildings. The bathrooms are always spotless!! Love renting from here, it's a great place to have a business at!",
   },
   {
-    name: "Priya Kapoor",
-    company: "Kapoor Design Studio",
-    suite: "Suite 310",
+    name: "Jonathan Kirkland",
+    source: "Google Review",
     rating: 5,
     quote:
-      "Natural light, quiet floors, and a layout that actually works for our team. We looked at a dozen properties before choosing 620 — this one stood out immediately.",
+      "Nice office park. Owner maintains the property consistently. Location is terrific!",
+  },
+  {
+    name: "Amanda Spencer",
+    source: "Google Review",
+    rating: 5,
+    quote:
+      "We've had our spa at 620 Oaks Office Park for about 6 years now and couldn't be happier with the management. It's a quiet office park with many different businesses, and all of our neighbors have been friendly over the years. Jon is quick to solve any maintenance issues we've had and has always been available whenever we've needed him. The rent is fair and the location is great!",
   },
 ];
 
@@ -205,9 +188,7 @@ export default function App() {
   };
 
   const navLinks = [
-    { label: "Why Us", id: "overview" },
     { label: "Spaces", id: "spaces" },
-    { label: "Gallery", id: "gallery" },
     { label: "Reviews", id: "reviews" },
     { label: "Contact", id: "contact" },
   ];
@@ -350,62 +331,28 @@ export default function App() {
         </div>
       </section>
 
-      {/* WHY OUR SPACES */}
-      <section id="overview" className="border-b border-border bg-card">
-        <div className="max-w-7xl mx-auto px-6 py-14 md:py-20">
+      {/* REVIEWS */}
+      <section id="reviews" className="border-b border-border bg-card py-14 md:py-20">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4">What Tenants Say</p>
             <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-normal text-foreground leading-tight"
+              className="text-4xl md:text-5xl font-normal text-foreground leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Choosing the Right Space for Your Business Is Essential
+              Trusted by Growing Businesses
             </h2>
             <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
-              The right space does more than hold your team — it elevates how you work, how you&apos;re seen, and how fast you can grow.
+              Hear from teams who chose 620 Oaks Office Park as their home base.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-            {businessBenefits.map((benefit, i) => {
-              const featured = i === 0;
-              return (
-                <div
-                  key={benefit.title}
-                  className={`group rounded-2xl border border-border bg-background transition-colors duration-300 hover:border-accent/25 hover:bg-secondary/30 ${
-                    featured
-                      ? "sm:col-span-2 p-8 md:p-10 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-7"
-                      : "p-6 md:p-8 flex flex-col gap-2"
-                  }`}
-                >
-                  <BenefitIcon id={benefit.icon} size={featured ? "lg" : "md"} />
-                  {featured ? (
-                    <div className="flex flex-col gap-2">
-                      <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-sm text-foreground/55 font-light leading-snug">
-                        {benefit.description}
-                      </p>
-                    </div>
-                  ) : (
-                    <>
-                      <h3 className="text-base md:text-lg font-medium text-foreground leading-snug">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-sm text-foreground/55 font-light leading-snug">
-                        {benefit.description}
-                      </p>
-                    </>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          <ReviewsCarousel reviews={reviews} />
         </div>
       </section>
 
       {/* AVAILABLE SPACES */}
-      <section id="spaces" className="bg-background pt-24 md:pt-32 pb-10 md:pb-12">
+      <section id="spaces" className="bg-background pt-12 md:pt-16 pb-10 md:pb-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-2">For Lease</p>
@@ -493,43 +440,6 @@ export default function App() {
           <div className="md:col-span-3">
             <PropertyLocationMap />
           </div>
-        </div>
-      </section>
-
-      {/* GALLERY */}
-      <section id="gallery" className="max-w-7xl mx-auto px-4 md:px-6 pt-10 md:pt-8 pb-16 md:pb-20">
-        <div className="max-w-2xl mx-auto text-center mb-6 md:mb-8 px-2 md:px-0">
-          <h2
-            className="text-2xl md:text-4xl font-normal text-foreground leading-tight"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            A campus cared for,
-            <br />built for your team.
-          </h2>
-          <p className="text-sm md:text-base text-foreground/55 font-light mt-4 leading-relaxed">
-            Meticulously maintained grounds and professional surroundings — a quiet, welcoming environment your clients notice and your team enjoys every day.
-          </p>
-        </div>
-        <GallerySlideshow />
-      </section>
-
-      {/* REVIEWS */}
-      <section id="reviews" className="border-t border-border pt-16 md:pt-20 pb-24 md:pb-32">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-            <p className="text-[11px] tracking-[0.25em] uppercase text-accent mb-4">What Tenants Say</p>
-            <h2
-              className="text-4xl md:text-5xl font-normal text-foreground leading-tight"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              Trusted by Growing Businesses
-            </h2>
-            <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
-              Hear from teams who chose 620 Oaks Office Park as their home base.
-            </p>
-          </div>
-
-          <ReviewsCarousel reviews={reviews} />
         </div>
       </section>
 

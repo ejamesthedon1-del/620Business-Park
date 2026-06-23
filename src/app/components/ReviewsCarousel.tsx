@@ -9,8 +9,7 @@ import {
 
 type Review = {
   name: string;
-  company: string;
-  suite: string;
+  source: string;
   rating: number;
   quote: string;
 };
@@ -58,9 +57,7 @@ export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
                 </p>
                 <div className="border-t border-border pt-5">
                   <p className="text-sm font-medium text-foreground">{review.name}</p>
-                  <p className="text-xs text-foreground/50 mt-1">
-                    {review.company} · {review.suite}
-                  </p>
+                  <p className="text-xs text-foreground/50 mt-1">{review.source}</p>
                 </div>
               </div>
             </CarouselItem>
