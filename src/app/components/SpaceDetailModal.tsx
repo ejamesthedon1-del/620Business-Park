@@ -65,11 +65,11 @@ export function SpaceDetailModal({
 
   return (
     <Dialog open={!!space} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-lg gap-0 p-0 rounded-2xl border-border max-h-[90dvh] overflow-y-auto overflow-x-hidden">
+      <DialogContent className="sm:max-w-lg gap-0 p-0 rounded-2xl border-border max-h-[90dvh] flex flex-col overflow-hidden">
         {space && (
           <>
             {hasGallery ? (
-              <div>
+              <div className="shrink-0">
                 <Carousel
                   key={space.id}
                   setApi={setApi}
@@ -136,7 +136,7 @@ export function SpaceDetailModal({
                 </div>
               </div>
             ) : (
-              <div className="relative aspect-[16/10] overflow-hidden">
+              <div className="relative aspect-[16/10] overflow-hidden shrink-0">
                 <ImageWithFallback
                   src={image}
                   alt={`${space.id} — ${space.type}`}
@@ -149,8 +149,8 @@ export function SpaceDetailModal({
               </div>
             )}
 
-            <div className="p-6 md:p-8">
-              <DialogHeader className="text-left gap-1 mb-6">
+            <div className="flex-1 overflow-y-auto p-6 md:p-8">
+              <DialogHeader className="text-left gap-1 mb-5">
                 <p className="text-[10px] tracking-[0.2em] uppercase text-accent">{space.floor}</p>
                 <DialogTitle
                   className="text-2xl md:text-3xl font-normal text-foreground"
@@ -163,22 +163,18 @@ export function SpaceDetailModal({
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-2 gap-4 mb-5">
                 <div>
                   <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Size</p>
                   <p className="text-sm text-foreground/80">{space.sqft} SF</p>
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Rate</p>
-                  <p className="text-sm text-foreground/80">{space.rate}</p>
-                </div>
-                <div className="col-span-2">
                   <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Available</p>
                   <p className="text-sm text-foreground/80">{space.available}</p>
                 </div>
               </div>
 
-              <ul className="flex flex-col gap-2 border-t border-border pt-5 mb-6">
+              <ul className="flex flex-col gap-2 border-t border-border pt-5">
                 {space.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-2.5">
                     <Check size={11} className="text-accent shrink-0" />
@@ -186,7 +182,9 @@ export function SpaceDetailModal({
                   </li>
                 ))}
               </ul>
+            </div>
 
+            <div className="shrink-0 border-t border-border p-4 bg-background">
               <button
                 onClick={() => onInquire(space.id)}
                 className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-accent text-accent-foreground text-xs tracking-[0.1em] uppercase hover:bg-accent/90 transition-colors duration-200"

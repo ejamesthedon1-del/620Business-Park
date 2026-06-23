@@ -112,6 +112,27 @@ const reviews = [
     quote:
       "We've had our spa at 620 Oaks Office Park for about 6 years now and couldn't be happier with the management. It's a quiet office park with many different businesses, and all of our neighbors have been friendly over the years. Jon is quick to solve any maintenance issues we've had and has always been available whenever we've needed him. The rent is fair and the location is great!",
   },
+  {
+    name: "Mike Connors",
+    source: "Google Review",
+    rating: 5,
+    quote:
+      "I spent four great years at 620 Oaks Office Park. We ran our construction business out of this location and really had a great experience. We expanded and needed more office space and a warehouse. The management was great the whole time. Never raised our rent and if we ever had a concern Jon took care of it immediately. I don't think you'll find better pricing in North Austin. While it's not the most luxurious place you can lease it's definitely a solid, well priced and serviceable location for a small business.",
+  },
+  {
+    name: "Todd Panozzo",
+    source: "Google Review",
+    rating: 4,
+    quote:
+      "John, the property manager, is always willing to get right on anything that comes up. He's easy to work with and gets things done. Also, when comparing office rental prices of similar quality and location, this is hard to beat.",
+  },
+  {
+    name: "J P",
+    source: "Google Review",
+    rating: 5,
+    quote:
+      "I like this office park because it's visually appealing. It's hard to do business in a place that millennials cringe at and this is definitely not that. Well done.",
+  },
 ];
 
 export default function App() {
@@ -284,7 +305,7 @@ export default function App() {
           </h1>
 
           <p className="text-base md:text-lg text-foreground/60 max-w-xl mb-6 font-light leading-snug mx-auto">
-            Premium Class A office suites available for immediate occupancy. Designed for businesses that demand more from their environment.
+            Professional office suites in one of the most desirable business locations on Highway 620.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">

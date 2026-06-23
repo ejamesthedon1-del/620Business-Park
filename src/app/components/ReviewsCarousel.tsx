@@ -48,8 +48,16 @@ export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
                 }`}
               >
                 <div className="flex gap-1">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <Star key={i} size={14} className="text-accent fill-accent" />
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      className={
+                        i < review.rating
+                          ? "text-accent fill-accent"
+                          : "text-foreground/20"
+                      }
+                    />
                   ))}
                 </div>
                 <p className="text-sm md:text-base text-foreground/70 font-light leading-relaxed flex-1">
