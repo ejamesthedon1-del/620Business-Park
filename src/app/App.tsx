@@ -223,7 +223,19 @@ export default function App() {
           scrolled ? "bg-background/95 backdrop-blur border-b border-border" : "bg-transparent"
         }`}
       >
-        <div className="relative max-w-7xl mx-auto px-6 flex items-center justify-end h-16">
+        <div className="relative max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+          {/* Left: mobile menu */}
+          <div className="flex items-center">
+            <button
+              className="md:hidden text-foreground/70 hover:text-foreground"
+              onClick={() => setNavOpen(!navOpen)}
+              aria-label="Menu"
+            >
+              {navOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+
+          {/* Center: logo */}
           <button
             onClick={() => scrollTo("hero")}
             className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 group whitespace-nowrap"
@@ -242,29 +254,34 @@ export default function App() {
             </span>
           </button>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navLinks.slice(0, 4).map((l) => (
+          {/* Right: desktop nav / mobile call */}
+          <div className="flex items-center">
+            <nav className="hidden md:flex items-center gap-6">
+              {navLinks.slice(0, 4).map((l) => (
+                <button
+                  key={l.id}
+                  onClick={() => scrollTo(l.id)}
+                  className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-200"
+                >
+                  {l.label}
+                </button>
+              ))}
               <button
-                key={l.id}
-                onClick={() => scrollTo(l.id)}
-                className="text-xs tracking-[0.15em] uppercase text-foreground/50 hover:text-foreground transition-colors duration-200"
+                onClick={() => scrollTo("contact")}
+                className="text-xs tracking-[0.15em] uppercase px-5 py-2 border border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-200"
               >
-                {l.label}
+                Inquire
               </button>
-            ))}
-            <button
-              onClick={() => scrollTo("contact")}
-              className="text-xs tracking-[0.15em] uppercase px-5 py-2 border border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-200"
-            >
-              Inquire
-            </button>
-          </nav>
+            </nav>
 
-          {/* Mobile hamburger */}
-          <button className="md:hidden text-foreground/60 hover:text-foreground" onClick={() => setNavOpen(!navOpen)}>
-            {navOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+            <a
+              href="tel:+15129948075"
+              className="md:hidden text-foreground/70 hover:text-accent transition-colors"
+              aria-label="Call (512) 994-8075"
+            >
+              <Phone size={18} />
+            </a>
+          </div>
         </div>
 
         {/* Mobile menu */}
@@ -475,7 +492,7 @@ export default function App() {
               </p>
 
               <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center gap-4">
                   <div className="w-10 h-10 border border-border flex items-center justify-center shrink-0">
                     <Phone size={14} className="text-accent" />
                   </div>
@@ -484,7 +501,7 @@ export default function App() {
                     <p className="text-sm text-foreground">(512) 994-8075</p>
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center gap-4">
                   <div className="w-10 h-10 border border-border flex items-center justify-center shrink-0">
                     <Mail size={14} className="text-accent" />
                   </div>
@@ -493,7 +510,7 @@ export default function App() {
                     <p className="text-sm text-foreground">perfectoffice512@gmail.com</p>
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center gap-4">
                   <div className="w-10 h-10 border border-border flex items-center justify-center shrink-0">
                     <MapPin size={14} className="text-accent" />
                   </div>
