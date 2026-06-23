@@ -459,8 +459,7 @@ export default function App() {
             <br />thriving business community.
           </h2>
           <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
-            Located directly on Highway 620, placing your business at the center of one of the areas
-            busiest commercial corridors and minutes from the clients, services, and opportunities.
+            At the center of one of Austin&apos;s most active business corridors.
           </p>
         </div>
 
@@ -478,8 +477,7 @@ export default function App() {
                 className="text-4xl md:text-5xl font-normal text-foreground leading-tight mb-4"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                Ready to make
-                <br />620 yours?
+                Schedule a Tour Today.
               </h2>
               <p className="text-foreground/50 font-light leading-relaxed mb-8 max-w-sm mx-auto">
                 Reach out to schedule a private tour or request a lease proposal. We typically respond within one business day.
