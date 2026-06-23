@@ -41,7 +41,7 @@ export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
           {reviews.map((review, index) => (
             <CarouselItem key={review.name} className="basis-[85%] sm:basis-[78%]">
               <div
-                className={`h-full rounded-3xl border bg-background p-8 md:p-10 flex flex-col gap-5 transition-all duration-300 ${
+                className={`h-full rounded-3xl border bg-background p-6 md:p-7 flex flex-col gap-4 transition-all duration-300 ${
                   current === index
                     ? "border-accent/30 opacity-100"
                     : "border-border opacity-50"
@@ -63,7 +63,7 @@ export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
                 <p className="text-sm md:text-base text-foreground/70 font-light leading-relaxed flex-1">
                   &ldquo;{review.quote}&rdquo;
                 </p>
-                <div className="border-t border-border pt-5">
+                <div className="border-t border-border pt-4">
                   <p className="text-sm font-medium text-foreground">{review.name}</p>
                   <p className="text-xs text-foreground/50 mt-1">{review.source}</p>
                 </div>
