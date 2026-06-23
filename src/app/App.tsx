@@ -316,21 +316,16 @@ export default function App() {
             className="text-4xl md:text-6xl lg:text-7xl font-normal text-foreground leading-[0.95] mb-4 max-w-4xl mx-auto"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            <span className="block">The Next Chapter</span>
-            <span className="block">for Your Business</span>
-            <span className="block text-accent not-italic">Starts Here.</span>
+            <span className="block">Best Location</span>
+            <span className="block">and Prices</span>
+            <span className="block text-accent not-italic">on FM 620</span>
           </h1>
-
-          <p className="text-base md:text-lg text-foreground/60 max-w-xl mb-6 font-light leading-snug mx-auto">
-            Professional office suites in one of the most desirable business locations on Highway 620.
-          </p>
-
           <div className="flex flex-wrap gap-4 justify-center">
             <button
               onClick={() => scrollTo("spaces")}
               className="flex items-center gap-3 px-7 py-3.5 bg-accent text-accent-foreground text-sm tracking-[0.1em] uppercase hover:bg-accent/90 transition-colors duration-200"
             >
-              View Available Spaces
+              View Featured Spaces
               <ArrowRight size={14} />
             </button>
             <button
@@ -398,7 +393,7 @@ export default function App() {
               className="text-4xl md:text-5xl font-normal text-foreground leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Available Spaces
+              Featured Spaces
             </h2>
             <p className="text-sm md:text-base text-foreground/55 font-light mt-2 leading-relaxed">
               Flexible configurations to match
@@ -464,9 +459,8 @@ export default function App() {
             <br />thriving business community.
           </h2>
           <p className="text-sm md:text-base text-foreground/55 font-light mt-5 leading-relaxed">
-            Located directly on Highway 620, placing your business at the center of one of the area's
-            busiest commercial corridors and minutes from the clients, services, and opportunities that
-            drive growth.
+            Located directly on Highway 620, placing your business at the center of one of the areas
+            busiest commercial corridors and minutes from the clients, services, and opportunities.
           </p>
         </div>
 
