@@ -223,19 +223,19 @@ export default function App() {
           scrolled ? "bg-background/95 backdrop-blur border-b border-border" : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+        <div className="relative max-w-7xl mx-auto px-6 flex items-center justify-end h-16">
           <button
             onClick={() => scrollTo("hero")}
-            className="flex items-center gap-2 group"
+            className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 group whitespace-nowrap"
           >
             <span
-              className="text-sm md:text-base tracking-[0.2em] uppercase text-accent font-medium"
+              className="text-sm md:text-base tracking-[0.2em] uppercase text-accent font-bold"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               620
             </span>
             <span
-              className="text-sm md:text-base tracking-[0.25em] uppercase text-foreground/80 font-light"
+              className="text-sm md:text-base tracking-[0.15em] uppercase text-foreground font-bold"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               Oaks Office Park
@@ -243,7 +243,7 @@ export default function App() {
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.slice(0, 4).map((l) => (
               <button
                 key={l.id}
