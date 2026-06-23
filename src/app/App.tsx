@@ -241,13 +241,13 @@ export default function App() {
             className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 group whitespace-nowrap"
           >
             <span
-              className="text-sm md:text-base tracking-[0.2em] uppercase text-accent font-bold"
+              className="text-base md:text-xl tracking-[0.2em] uppercase text-foreground font-bold"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               620
             </span>
             <span
-              className="text-sm md:text-base tracking-[0.15em] uppercase text-foreground font-bold"
+              className="text-base md:text-xl tracking-[0.15em] uppercase text-foreground font-bold"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               Oaks Office Park
