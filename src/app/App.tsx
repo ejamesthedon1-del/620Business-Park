@@ -42,7 +42,7 @@ type SpaceItem = {
 
 const spaces: SpaceItem[] = [
   {
-    id: "Suite 106",
+    id: "Suite 203",
     floor: "1st Floor",
     type: "Executive Suite",
     sqft: "1,940",
@@ -50,10 +50,10 @@ const spaces: SpaceItem[] = [
     rate: "$28 / SF / Yr",
     image: SUITE_110_IMAGE,
     gallery: SUITE_110_GALLERY,
-    features: ["Corner unit", "Private entrance", "Kitchenette", "2 private offices"],
+    features: ["4 offices", "Reception area", "Conference room"],
   },
   {
-    id: "Suite 203",
+    id: "Suite 106",
     floor: "1st Floor",
     type: "Open Plan",
     sqft: "1,385",
@@ -61,12 +61,12 @@ const spaces: SpaceItem[] = [
     rate: "$26 / SF / Yr",
     image: "/images/suite-220.png",
     gallery: [
-      { src: "/images/suite-220.png", alt: "Suite 203 — open room with tile flooring and bright windows" },
-      { src: "/images/suite-220-2.png", alt: "Suite 203 — open-plan layout with wood flooring and multiple rooms" },
-      { src: "/images/suite-220-3.png", alt: "Suite 203 — wood-paneled office with recessed lighting" },
-      { src: "/images/suite-220-4.png", alt: "Suite 203 — private office with built-in cabinetry and desk" },
-      { src: "/images/suite-220-5.png", alt: "Suite 203 — bright office with multiple windows and wood flooring" },
-      { src: "/images/suite-220-6.png", alt: "Suite 203 — private restroom with vanity and vessel sink" },
+      { src: "/images/suite-220.png", alt: "Suite 106 — open room with tile flooring and bright windows" },
+      { src: "/images/suite-220-2.png", alt: "Suite 106 — open-plan layout with wood flooring and multiple rooms" },
+      { src: "/images/suite-220-3.png", alt: "Suite 106 — wood-paneled office with recessed lighting" },
+      { src: "/images/suite-220-4.png", alt: "Suite 106 — private office with built-in cabinetry and desk" },
+      { src: "/images/suite-220-5.png", alt: "Suite 106 — bright office with multiple windows and wood flooring" },
+      { src: "/images/suite-220-6.png", alt: "Suite 106 — private restroom with vanity and vessel sink" },
     ],
     features: ["Open floor plan", "Conference room", "Storage room"],
   },
