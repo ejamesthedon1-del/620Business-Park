@@ -17,6 +17,20 @@ type Fbq = {
 const META_PIXEL_ID =
   import.meta.env.VITE_META_PIXEL_ID ?? "1556856686018623";
 
+// Set in .env.local while testing in Events Manager → Test Events. Remove before ads go live.
+const META_PIXEL_TEST_EVENT_CODE = import.meta.env
+  .VITE_META_PIXEL_TEST_EVENT_CODE as string | undefined;
+
+function getTestEventOptions():
+  | { test_event_code: string }
+  | undefined {
+  if (!META_PIXEL_TEST_EVENT_CODE) {
+    return undefined;
+  }
+
+  return { test_event_code: META_PIXEL_TEST_EVENT_CODE };
+}
+
 export function isMetaPixelEnabled(): boolean {
   return Boolean(META_PIXEL_ID);
 }
@@ -43,8 +57,9 @@ export function initMetaPixel(): void {
     s!.parentNode!.insertBefore(t, s!);
   })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
 
-  window.fbq!("init", META_PIXEL_ID);
-  window.fbq!("track", "PageView");
+  const testEventOptions = getTestEventOptions();
+  window.fbq!("init", META_PIXEL_ID, {}, testEventOptions);
+  window.fbq!("track", "PageView", {}, testEventOptions);
 }
 
 export function trackMetaEvent(
@@ -55,9 +70,11 @@ export function trackMetaEvent(
     return;
   }
 
+  const testEventOptions = getTestEventOptions();
+
   if (params) {
-    window.fbq("track", event, params);
+    window.fbq("track", event, params, testEventOptions);
   } else {
-    window.fbq("track", event);
+    window.fbq("track", event, {}, testEventOptions);
   }
 }
