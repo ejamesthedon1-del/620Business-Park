@@ -4,6 +4,7 @@ import { PropertyLocationMap } from "./components/PropertyLocationMap";
 import { SpaceDetailModal } from "./components/SpaceDetailModal";
 import { ReviewsCarousel } from "./components/ReviewsCarousel";
 import { propertyLocation } from "../data/location";
+import { initMetaPixel, trackMetaEvent } from "../lib/metaPixel";
 import {
   MapPin,
   ArrowRight,
@@ -146,6 +147,10 @@ export default function App() {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
+    initMetaPixel();
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -191,6 +196,10 @@ export default function App() {
       const data = await response.json();
 
       if (data.success) {
+        trackMetaEvent("Lead", {
+          content_name: form.interest || "General inquiry",
+          content_category: "Leasing inquiry",
+        });
         setSubmitted(true);
         setForm({ name: "", company: "", email: "", phone: "", interest: "", message: "" });
       } else {
